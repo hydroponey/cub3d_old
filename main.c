@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 03:33:09 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/23 03:41:52 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ typedef struct   s_vars {
     void    *win;
 }               t_vars;
 
-int close(int keycode, t_vars *vars)
+int exit_hook(int keycode, t_vars *vars)
 {
     mlx_destroy_window(vars->mlx, vars->win);
+    exit(0);
 }
 
 int main(void)
@@ -33,7 +34,8 @@ int main(void)
     vars.win = mlx_new_window(vars.mlx, 640, 480, "Cub3D");
     if (!vars.win)
         return (0);
-    mlx_hook(vars.win, 2, 1L<<0, close, &vars);
+    mlx_hook(vars.win, 2, 1L<<0, exit_hook, &vars);
+    mlx_hook(vars.win, 17, 0, exit_hook, &vars);
     mlx_loop(vars.mlx);
 
     return (0);
