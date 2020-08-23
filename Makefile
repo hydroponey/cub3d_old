@@ -6,14 +6,14 @@
 #    By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/23 01:43:43 by asimoes           #+#    #+#              #
-#    Updated: 2020/08/23 03:34:22 by asimoes          ###   ########.fr        #
+#    Updated: 2020/08/23 04:10:17 by asimoes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=	main.c
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
-CFLAGS	=
+CFLAGS	=	-Wall -Werror -Wextra
 LIBS	=	-Lmlx -lmlx -lXext -lX11
 NAME	=	cub3d
 MLX		=	mlx/libmlx.a
