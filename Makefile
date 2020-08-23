@@ -6,7 +6,7 @@
 #    By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/23 01:43:43 by asimoes           #+#    #+#              #
-#    Updated: 2020/08/23 03:22:40 by asimoes          ###   ########.fr        #
+#    Updated: 2020/08/23 03:24:07 by asimoes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,14 @@ CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra
 LIBS	=	-Lmlx -lmlx -lXext -lX11
 NAME	=	cub3d
+MLX		=	mlx/libmlx.a
 
 all:		$(NAME)
 
-mlx:
+$(MLX):
 			$(MAKE) -C mlx
 
-$(NAME):	$(OBJS) mlx/libmlx.a
+$(NAME):	$(OBJS) $(MLX)
 			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
 
 clean:		
