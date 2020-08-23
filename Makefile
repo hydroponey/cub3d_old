@@ -6,7 +6,7 @@
 #    By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/23 01:43:43 by asimoes           #+#    #+#              #
-#    Updated: 2020/08/23 03:16:43 by asimoes          ###   ########.fr        #
+#    Updated: 2020/08/23 03:22:40 by asimoes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ all:		$(NAME)
 mlx:
 			$(MAKE) -C mlx
 
-$(NAME):	$(OBJS) mlx
+$(NAME):	$(OBJS) mlx/libmlx.a
 			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
 
 clean:		
