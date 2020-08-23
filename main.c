@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 04:07:56 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/23 04:09:32 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct   s_vars {
 int exit_hook(t_vars *vars)
 {
     exit(0);
+    return (0);
 }
 
 int main(void)
