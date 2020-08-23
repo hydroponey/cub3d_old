@@ -6,11 +6,12 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 03:41:52 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/23 03:43:06 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "mlx/mlx.h"
 
 typedef struct   s_vars {
