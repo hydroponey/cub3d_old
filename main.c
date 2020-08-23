@@ -6,14 +6,14 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 03:32:14 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/23 03:33:09 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "mlx/mlx.h"
 
-typdef struct   s_vars {
+typedef struct   s_vars {
     void    *mlx;
     void    *win;
 }               t_vars;
