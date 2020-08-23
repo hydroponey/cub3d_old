@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 03:44:46 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/23 03:52:38 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct   s_vars {
 
 int exit_hook(int keycode, t_vars *vars)
 {
+    printf("Exit called\n");
     mlx_destroy_window(vars->mlx, vars->win);
     exit(0);
 }
