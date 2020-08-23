@@ -6,7 +6,7 @@
 #    By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/23 01:43:43 by asimoes           #+#    #+#              #
-#    Updated: 2020/08/23 02:38:16 by asimoes          ###   ########.fr        #
+#    Updated: 2020/08/23 03:16:43 by asimoes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,11 @@ NAME	=	cub3d
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS) mlx
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
-
 mlx:
 			$(MAKE) -C mlx
+
+$(NAME):	$(OBJS) mlx
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
 
 clean:		
 			rm -f $(OBJS)
