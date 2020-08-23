@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 03:52:38 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/23 03:55:14 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main(void)
     if (!vars.win)
         return (0);
     mlx_hook(vars.win, 2, 1L<<0, exit_hook, &vars);
-    mlx_hook(vars.win, 17, 1L<<0, exit_hook, &vars);
+    mlx_hook(vars.win, 17, 1L<<2, exit_hook, &vars);
     mlx_loop(vars.mlx);
 
     return (0);
