@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 04:07:03 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/23 04:07:56 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(void)
     vars.win = mlx_new_window(vars.mlx, 640, 480, "Cub3D");
     if (!vars.win)
         return (0);
-    mlx_hook(vars.win, X_EVENT_EXIT, 0, &exit_hook, &vars);
+    mlx_hook(vars.win, 17, 0, &exit_hook, &vars);
     mlx_loop(vars.mlx);
 
     return (0);
