@@ -46,9 +46,9 @@ t_conf	*check_args(int argc, char **argv)
 		return (conf_error(ERR_CONF_BAD_ARG));
 	if (!(conf = (t_conf*)malloc(sizeof(t_conf))))
 		return (conf_error(ERR_CONF_MALLOC));
-	conf->map_path  =   argv[1];
-	conf->save_bmp  =   (save_bmp == 0) ? 1 : 0;
-	conf->map_fd    =   fd;
+	conf->map_path = argv[1];
+	conf->save_bmp = (save_bmp == 0) ? 1 : 0;
+	conf->map_fd = fd;
 	return (conf);
 }
 
@@ -76,7 +76,7 @@ int		is_numeric(char *str)
 static void		parse_resolution(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "R", 1) != 0)
 		return ;
@@ -101,7 +101,7 @@ static void		parse_resolution(char *line, t_conf *conf, short int *parsed)
 static void		parse_no(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "NO", 2) != 0)
 		return ;
@@ -120,7 +120,7 @@ static void		parse_no(char *line, t_conf *conf, short int *parsed)
 static void		parse_so(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "SO", 2) != 0)
 		return ;
@@ -139,7 +139,7 @@ static void		parse_so(char *line, t_conf *conf, short int *parsed)
 static void		parse_we(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "WE", 2) != 0)
 		return ;
@@ -158,7 +158,7 @@ static void		parse_we(char *line, t_conf *conf, short int *parsed)
 static void		parse_ea(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "EA", 2) != 0)
 		return ;
@@ -177,7 +177,7 @@ static void		parse_ea(char *line, t_conf *conf, short int *parsed)
 static void		parse_s(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "S", 1) != 0)
 		return ;
@@ -197,7 +197,7 @@ static void		parse_f(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
 	char	**rgb;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "F", 1) != 0)
 		return ;
@@ -232,7 +232,7 @@ static void		parse_c(char *line, t_conf *conf, short int *parsed)
 {
 	char	**data;
 	char	**rgb;
-	
+
 	data = NULL;
 	if (ft_strncmp(line, "C", 1) != 0)
 		return ;
@@ -285,7 +285,6 @@ int     parse_config(t_conf *conf)
 		if (!ret_gnl)
 			break ;
     }
-	
     return (1);
 }
 
