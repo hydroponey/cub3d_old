@@ -20,13 +20,13 @@
 #include "get_next_line/get_next_line.h"
 #include "cub3d.h"
 
-void	*conf_error(char *str)
+void			*conf_error(char *str)
 {
 	ft_putstr_fd(str, 1);
 	return (NULL);
 }
 
-t_conf	*check_args(int argc, char **argv)
+t_conf			*check_args(int argc, char **argv)
 {
 	t_conf	*conf;
 	int		path_len;
@@ -52,7 +52,7 @@ t_conf	*check_args(int argc, char **argv)
 	return (conf);
 }
 
-void	ft_freetab(char **tab)
+void			ft_freetab(char **tab)
 {
 	void	*tab_start;
 
@@ -62,7 +62,7 @@ void	ft_freetab(char **tab)
 	free(tab_start);
 }
 
-int		is_numeric(char *str)
+int				is_numeric(char *str)
 {
 	while (*str != '\0')
 	{
@@ -263,7 +263,7 @@ static void		parse_c(char *line, t_conf *conf, short int *parsed)
 	ft_freetab(data);
 }
 
-int     parse_config(t_conf *conf)
+int     		parse_config(t_conf *conf)
 {
     char    	*line;
 	int			ret_gnl;
@@ -288,7 +288,7 @@ int     parse_config(t_conf *conf)
     return (1);
 }
 
-void	free_config(t_conf *conf)
+void			free_config(t_conf *conf)
 {
 	free(conf->map_path);
 	free(conf->textures.ea);
