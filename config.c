@@ -20,36 +20,36 @@
 #include "get_next_line/get_next_line.h"
 #include "cub3d.h"
 
-void    *conf_error(char *str)
+void	*conf_error(char *str)
 {
 	ft_putstr_fd(str, 1);
 	return (NULL);
 }
 
-t_conf  *check_args(int argc, char **argv)
+t_conf	*check_args(int argc, char **argv)
 {
-    t_conf  *conf;
-    int     path_len;
-    int     save_bmp;
-    int     fd;
+	t_conf	*conf;
+	int		path_len;
+	int		save_bmp;
+	int		fd;
 
-    fd = -1;
-    if (argc != 2 && argc != 3)
-        return (conf_error(ERR_CONF_USAGE));
-    if ((path_len = ft_strlen(argv[1])) < 4)
-        return (conf_error(ERR_CONF_NOMAP));
-    if (ft_strncmp(&argv[1][path_len - 4], ".cub", 4) != 0)
-        return (conf_error(ERR_CONF_WRONG_EXT));
-    if ((fd = open(argv[1], O_RDONLY)) == -1)
-        return (conf_error(ERR_CONF_OPEN_FAIL));
-    if (argc == 3 && (save_bmp = ft_strncmp(argv[2], "--save", 6)) != 0)
-        return (conf_error(ERR_CONF_BAD_ARG));
-    if (!(conf = (t_conf*)malloc(sizeof(t_conf))))
+	fd = -1;
+	if (argc != 2 && argc != 3)
+		return (conf_error(ERR_CONF_USAGE));
+	if ((path_len = ft_strlen(argv[1])) < 4)
+		return (conf_error(ERR_CONF_NOMAP));
+	if (ft_strncmp(&argv[1][path_len - 4], ".cub", 4) != 0)
+		return (conf_error(ERR_CONF_WRONG_EXT));
+	if ((fd = open(argv[1], O_RDONLY)) == -1)
+		return (conf_error(ERR_CONF_OPEN_FAIL));
+	if (argc == 3 && (save_bmp = ft_strncmp(argv[2], "--save", 6)) != 0)
+		return (conf_error(ERR_CONF_BAD_ARG));
+	if (!(conf = (t_conf*)malloc(sizeof(t_conf))))
 		return (conf_error(ERR_CONF_MALLOC));
-    conf->map_path  =   argv[1];
-    conf->save_bmp  =   (save_bmp == 0) ? 1 : 0;
-    conf->map_fd    =   fd;
-    return (conf);
+	conf->map_path  =   argv[1];
+	conf->save_bmp  =   (save_bmp == 0) ? 1 : 0;
+	conf->map_fd    =   fd;
+	return (conf);
 }
 
 void	ft_freetab(char **tab)
