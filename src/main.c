@@ -57,13 +57,13 @@ int     main(int argc, char **argv)
     }
     mlx_get_screen_size(vars.mlx, &screen_res.x, &screen_res.y);
 	if (game_conf->resolution.x > screen_res.x || game_conf->resolution.y > screen_res.y)
-	    vars.win = mlx_new_window(vars.mlx, screen_res.x, screen_res.y, "Cub3D");
+		vars.win = mlx_new_window(vars.mlx, screen_res.x, screen_res.y, "Cub3D");
 	else
-	    vars.win = mlx_new_window(vars.mlx, game_conf->resolution.x, game_conf->resolution.y, "Cub3D");
-    if (!vars.win)
-        return (0);
+		vars.win = mlx_new_window(vars.mlx, game_conf->resolution.x, game_conf->resolution.y, "Cub3D");
+	if (!vars.win)
+		return (0);
 	mlx_key_hook(vars.win, key_hook, 0);
-    mlx_loop(vars.mlx);
+	mlx_loop(vars.mlx);
 
-    return (0);
+	return (0);
 }
