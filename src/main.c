@@ -24,6 +24,12 @@ int     key_hook(int key, void *p __attribute__((unused)))
 	return (0);
 }
 
+void	exit_hook(void *p __attribute__((unused)))
+{
+	exit(0);
+	return (0);
+}
+
 int     main(int argc, char **argv)
 {
     t_vars  vars;
@@ -62,6 +68,7 @@ int     main(int argc, char **argv)
 	if (!vars.win)
 		return (0);
 	mlx_key_hook(vars.win, key_hook, 0);
+	mlx_hook(vars.win, 17, 0, &exit_hook, 0);
 	mlx_loop(vars.mlx);
 
 	return (0);
