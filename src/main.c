@@ -19,7 +19,7 @@
 
 int     key_hook(int key, void *p)
 {
-	(void*)&p;
+	(void*)p;
 	if (key == 0xFF1B)
 		exit(0);
 	return (0);
