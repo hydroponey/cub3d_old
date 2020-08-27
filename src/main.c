@@ -28,24 +28,33 @@ int     main(int argc, char **argv)
     t_vars  vars;
     t_reso  screen_res;
     t_conf  *game_conf;
+	int		err;
 
-    if (!(game_conf = check_args(argc, argv)))
-        return (-1);
-    if (!(parse_config(game_conf)))
+	game_conf = NULL;
+	err = 0;
+    if ((err = check_args(&game_conf, argc, argv)) != 0)
 	{
-		free(game_conf->map_path);
-		free(game_conf);
+		print_error(err);
+        return (-1);
+	}
+    if ((err = parse_config(game_conf)) != 0)
+	{
+		print_error(err);
+		free_config(game_conf);
 		return (-1);
 	}
-    printf("Screen size: %dx%d\n", game_conf->resolution.x, game_conf->resolution.y);
-    printf("North texture: %s\n", game_conf->textures.no);
+    printf("Screen size: [%dx%d]\n", game_conf->resolution.x, game_conf->resolution.y);
+    printf("North texture: %s\n", game_conf->textures[TEXTURE_NO]);
+    printf("South texture: %s\n", game_conf->textures[TEXTURE_SO]);
+    printf("West texture: %s\n", game_conf->textures[TEXTURE_WE]);
+    printf("East texture: %s\n", game_conf->textures[TEXTURE_EA]);
     if (!(vars.mlx = mlx_init()))
     {
         ft_putstr_fd("Error initializing mlx, exiting.\n", 1);
         return (-1);
     }
     mlx_get_screen_size(vars.mlx, &screen_res.x, &screen_res.y);
-    printf("Screen size: %dx%d\n", screen_res.x, screen_res.y);
+    printf("Screen size: [%dx%d]\n", screen_res.x, screen_res.y);
     vars.win = mlx_new_window(vars.mlx, 640, 480, "Cub3D");
     if (!vars.win)
         return (0);

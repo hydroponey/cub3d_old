@@ -10,60 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#define ERR_CONF_USAGE		"Error\nUsage: ./cub3d <map_file.cub> [--save]\n"
-#define ERR_CONF_NOMAP		"Error\nMap file has no name.\n"
-#define ERR_CONF_WRONG_EXT	"Error\nMap file needs to have .cub extension.\n"
-#define ERR_CONF_OPEN_FAIL	"Error\nCannot open map file.\n"
-#define ERR_CONF_BAD_ARG	"Error\nUsage: ./cub3d <map_file.cub> [--save]\n"
-#define ERR_CONF_MALLOC		"Error\nConfig structure allocation failed.\n"
+
+#define CONF_R	0
+#define CONF_NO	1
+#define CONF_SO	2
+#define CONF_WE	3
+#define CONF_EA	4
+#define CONF_S	5
+#define CONF_F	6
+#define CONF_C	7
+
+#define TEXTURE_NO	0
+#define TEXTURE_SO	1
+#define TEXTURE_WE	2
+#define TEXTURE_EA	3
 
 typedef struct  s_reso {
-    int     x;
-    int     y;
+    int	x;
+    int	y;
 }               t_reso;
 
-typedef struct  s_textures {
-    char    *no;
-    char    *so;
-    char    *we;
-    char    *ea;
-    char    *sprite;
-}               t_textures;
-
-/**
- * \struct s_conf
- * \brief Contains all necessary game informations parsed from map file
- * \param map_path Path to the map file
- * \param save_bmp Equals 1 if --save is used as argument
- * \param map_fd File descriptor to map file
-**/
 typedef struct  s_conf {
     char        *map_path;
     int         save_bmp;
     int         map_fd;
     t_reso      resolution;
-    t_textures  textures;
+    char		*textures[5];
     int      	floor_color[3];
     int      	ceil_color[3];
 }               t_conf;
-
-typedef struct s_parsed {
-	short int	is_resolution;
-	short int	is_no_texture;
-	short int	is_so_texture;
-	short int	is_we_texture;
-	short int	is_ea_texture;
-	short int	is_s_texture;
-	short int	is_f_color;
-	short int	is_c_color;
-	short int	count;
-}				t_parsed;
-
 
 typedef struct  s_vars {
     void    *mlx;
     void    *win;
 }               t_vars;
 
-t_conf  *check_args(int argc, char **argv);
+// config.h
+int		check_args(t_conf **conf, int argc, char **argv);
 int     parse_config(t_conf *conf);
+void	free_config(t_conf *conf);
+
+// get_conf_values.h
+int		get_resolution(t_conf *conf, char **conf_strings);
+int		get_textures(t_conf *conf, char **conf_strings);
+int		get_ceil_color(t_conf *conf, char **conf_strings);
+int		get_floor_color(t_conf *conf, char **conf_strings);
+
+// error.h
+void	print_error(int code);

@@ -10,30 +10,39 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	main.c config.c get_next_line/get_next_line.c \
-			get_next_line/get_next_line_utils.c
-OBJS	=	$(SRCS:.c=.o)
+SRCDIR	= src
+OBJDIR	= obj
+SRCS	=	src/main.c \
+			src/config.c \
+			src/get_conf_values.c \
+			src/error.c \
+			src/get_next_line.c \
+			src/get_next_line_utils.c
+OBJS	=	$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -DBUFFER_SIZE=1024
-LIBS	=	-Lmlx -Llibft -lft -lmlx -lXext -lX11
+CFLAGS	=	-Wall -Wextra -Werror -DBUFFER_SIZE=1024 -g3 -Ilib
+CLIBS	=	-Llib/mlx -Llib/libft -lft -lmlx -lXext -lX11
 NAME	=	cub3d
-MLX		=	mlx/libmlx.a
-LIBFT	=	libft/libft.a
+MLX		=	lib/mlx/libmlx.a
+LIBFT	=	lib/libft/libft.a
 
 all:		$(NAME)
 
+$(OBJS):	$(OBJDIR)/%.o : $(SRCDIR)/%.c
+			$(CC) $(CFLAGS) -c $< -o $@
+
 $(MLX):
-			$(MAKE) -C mlx
+			$(MAKE) -C lib/mlx
 
 $(LIBFT):
-			$(MAKE) -C libft
+			$(MAKE) -C lib/libft
 
 $(NAME):	$(OBJS) $(MLX) $(LIBFT)
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CLIBS)
 
 clean:
-			$(MAKE) -C mlx clean
-			$(MAKE) -C libft fclean
+			$(MAKE) -C lib/mlx clean
+			$(MAKE) -C lib/libft fclean
 			rm -f $(OBJS)
 
 fclean:		clean
