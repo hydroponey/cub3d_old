@@ -68,7 +68,7 @@ int     main(int argc, char **argv)
 	if (!vars.win)
 		return (0);
 	mlx_key_hook(vars.win, key_hook, 0);
-	mlx_hook(vars.win, 17, 0, &exit_hook, 0);
+	mlx_hook(vars.win, 17, 0, exit_hook, 0);
 	mlx_loop(vars.mlx);
 
 	return (0);
