@@ -17,9 +17,8 @@
 #include "mlx/mlx.h"
 #include "cub3d.h"
 
-int     key_hook(int key, void *p)
+int     key_hook(int key, void *p __attribute__((unused)))
 {
-	(void*)p;
 	if (key == 0xFF1B)
 		exit(0);
 	return (0);
