@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/27 18:53:46 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/28 00:07:10 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int						check_args(t_conf **conf, int argc, char **argv)
 int						check_config(t_conf *conf, char **conf_strings)
 {
 	int	retval;
-	
+
 	retval = 0;
 	if ((retval = get_resolution(conf, conf_strings)) != 0)
 		return (retval);
@@ -74,15 +74,15 @@ void					free_conf_strings(char **conf_strings)
 		free(conf_strings[i++]);
 }
 
-int     				parse_config(t_conf *conf)
+int						parse_config(t_conf *conf)
 {
 	char			*line;
 	int				ret_gnl;
 	unsigned int	i;
 	unsigned short	param_len;
 	int				ret_check;
-	char *params[8] = {"R ", "NO ", "SO ", "WE ", "EA ", "S ", "F ", "C "};
-	char *conf_strings[8] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	char 			*params[8] = {"R ", "NO ", "SO ", "WE ", "EA ", "S ", "F ", "C "};
+	char 			*conf_strings[8] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
