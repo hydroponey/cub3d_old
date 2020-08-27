@@ -12,15 +12,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <X.h>
 #include "libft/libft.h"
 #include "mlx/mlx.h"
 #include "cub3d.h"
 
-int     exit_hook(t_vars *vars)
+int     key_hook(int key, void *p)
 {
-    (void)&vars;
-    exit(0);
-    return (0);
+	if (key == 0xFF1B)
+		exit(0);
 }
 
 int     main(int argc, char **argv)
@@ -60,7 +60,7 @@ int     main(int argc, char **argv)
 	    vars.win = mlx_new_window(vars.mlx, game_conf->resolution.x, game_conf->resolution.y, "Cub3D");
     if (!vars.win)
         return (0);
-    mlx_hook(vars.win, 17, 0, &exit_hook, &vars);
+	mlx_key_hook(vars.win, key_hook, 0);
     mlx_loop(vars.mlx);
 
     return (0);
