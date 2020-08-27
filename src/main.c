@@ -54,8 +54,10 @@ int     main(int argc, char **argv)
         return (-1);
     }
     mlx_get_screen_size(vars.mlx, &screen_res.x, &screen_res.y);
-    printf("Screen size: [%dx%d]\n", screen_res.x, screen_res.y);
-    vars.win = mlx_new_window(vars.mlx, 640, 480, "Cub3D");
+	if (game_conf->resolution.x > screen_res.x || game_conf->resolution.y > screen_res.y)
+	    vars.win = mlx_new_window(vars.mlx, screen_res.x, screen_res.y, "Cub3D");
+	else
+	    vars.win = mlx_new_window(vars.mlx, game_conf->resolution.x, game_conf->resolution.y, "Cub3D");
     if (!vars.win)
         return (0);
     mlx_hook(vars.win, 17, 0, &exit_hook, &vars);
