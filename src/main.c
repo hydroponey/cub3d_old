@@ -19,13 +19,15 @@
 
 int     key_hook(int key, void *p __attribute__((unused)))
 {
+	printf("key hook called\n");
 	if (key == 0xFF1B)
 		exit(0);
 	return (0);
 }
 
-int	exit_hook(void *p __attribute__((unused)))
+int		exit_hook(void *p __attribute__((unused)))
 {
+	printf("exit hook called\n");
 	exit(0);
 	return (0);
 }
@@ -50,11 +52,6 @@ int     main(int argc, char **argv)
 		free_config(game_conf);
 		return (-1);
 	}
-    printf("Screen size: [%dx%d]\n", game_conf->resolution.x, game_conf->resolution.y);
-    printf("North texture: %s\n", game_conf->textures[TEXTURE_NO]);
-    printf("South texture: %s\n", game_conf->textures[TEXTURE_SO]);
-    printf("West texture: %s\n", game_conf->textures[TEXTURE_WE]);
-    printf("East texture: %s\n", game_conf->textures[TEXTURE_EA]);
     if (!(vars.mlx = mlx_init()))
     {
         ft_putstr_fd("Error initializing mlx, exiting.\n", 1);
@@ -66,10 +63,9 @@ int     main(int argc, char **argv)
 	else
 		vars.win = mlx_new_window(vars.mlx, game_conf->resolution.x, game_conf->resolution.y, "Cub3D");
 	if (!vars.win)
-		return (0);
+		return (-1);
 	mlx_key_hook(vars.win, key_hook, 0);
 	mlx_hook(vars.win, 17, 0, exit_hook, 0);
 	mlx_loop(vars.mlx);
-
 	return (0);
 }
