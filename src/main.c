@@ -24,7 +24,7 @@ int     key_hook(int key, void *p __attribute__((unused)))
 	return (0);
 }
 
-void	exit_hook(void *p __attribute__((unused)))
+int	exit_hook(void *p __attribute__((unused)))
 {
 	exit(0);
 	return (0);
