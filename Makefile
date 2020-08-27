@@ -28,7 +28,10 @@ LIBFT	=	lib/libft/libft.a
 
 all:		$(NAME)
 
-$(OBJS):	$(OBJDIR)/%.o : $(SRCDIR)/%.c
+$(OBJDIR):
+			mkdir obj
+
+$(OBJS):	$(OBJDIR) $(OBJDIR)/%.o : $(SRCDIR)/%.c
 			$(CC) $(CFLAGS) -c $< -o $@
 
 $(MLX):
