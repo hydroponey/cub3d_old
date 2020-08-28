@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 10:46:51 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/28 10:59:30 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,28 +67,18 @@ int						check_config(t_conf *conf, char **conf_strings)
 
 int						read_config(t_conf *conf, char **conf_strings)
 {
-	unsigned short	param_len;
+	int				param_len;
 	unsigned int	i;
 	char			*line;
 	int				ret_gnl;
-	char			*params[8];
 
-	params[0] = "R ";
-	params[1] = "NO ";
-	params[2] = "SO ";
-	params[3] = "WE ";
-	params[4] = "EA ";
-	params[5] = "S ";
-	params[6] = "F ";
-	params[7] = "C ";
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
 		i = 0;
 		while (i < 8)
 		{
-			param_len = ft_strlen(params[i]);
-			if (ft_strncmp(line, params[i], param_len) == 0)
+			if ((param_len = is_param(line, i)) != -1)
 			{
 				if (!conf_strings[i])
 					conf_strings[i] = ft_strtrim((line + param_len), " \t");
@@ -107,7 +97,7 @@ int						parse_config(t_conf *conf)
 {
 	unsigned int	i;
 	int				ret_check;
-	char 			**conf_strings;
+	char			**conf_strings;
 
 	if (!(conf_strings = (char**)malloc(sizeof(char *) * 8)))
 		return (ERR_MALLOC_CUBE);
