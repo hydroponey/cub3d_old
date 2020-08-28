@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:51:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 22:37:19 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/28 23:17:49 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ const char	*get_error_msg(int code)
 	return (NULL);
 }
 
-void	print_error(int code)
+void		print_error(int code)
 {
 	const char *message;
 
