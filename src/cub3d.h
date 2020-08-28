@@ -11,21 +11,22 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
+
 # define CUB3D_H
 
-#define CONF_R	0
-#define CONF_NO	1
-#define CONF_SO	2
-#define CONF_WE	3
-#define CONF_EA	4
-#define CONF_S	5
-#define CONF_F	6
-#define CONF_C	7
+# define CONF_R		0
+# define CONF_NO	1
+# define CONF_SO	2
+# define CONF_WE	3
+# define CONF_EA	4
+# define CONF_S		5
+# define CONF_F		6
+# define CONF_C		7
 
-#define TEXTURE_NO	0
-#define TEXTURE_SO	1
-#define TEXTURE_WE	2
-#define TEXTURE_EA	3
+# define TEXTURE_NO	0
+# define TEXTURE_SO	1
+# define TEXTURE_WE	2
+# define TEXTURE_EA	3
 
 typedef struct	s_reso {
 	int	x;
