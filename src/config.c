@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 10:59:30 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/28 16:16:31 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ int						parse_config(t_conf *conf)
 
 	if (!(conf_strings = (char**)malloc(sizeof(char *) * 8)))
 		return (ERR_MALLOC_CUBE);
+	i = 0;
+	while (i < 8)
+		conf_strings[i++] = NULL;
 	if (read_config(conf, conf_strings) == -1)
 		return (ERR_GNL_FAIL);
 	ret_check = check_config(conf, conf_strings);
