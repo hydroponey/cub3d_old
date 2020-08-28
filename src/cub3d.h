@@ -5,11 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/23 20:08:54 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 21:10:54 by asimoes          ###   ########.fr       */
+/*   Created: 2020/08/28 23:20:14 by asimoes           #+#    #+#             */
+/*   Updated: 2020/08/28 23:20:14 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef CUB3D_H
+# define CUB3D_H
 
 #define CONF_R	0
 #define CONF_NO	1
@@ -45,21 +47,19 @@ typedef struct  s_vars {
     void    *win;
 }               t_vars;
 
-// config_utils.h
 int		is_param(char *data, int param_id);
 void	ft_freetab(char **tab);
 int		is_numeric(char *str);
 
-// config.h
 int		check_args(t_conf **conf, int argc, char **argv);
 int     parse_config(t_conf *conf);
 void	free_config(t_conf *conf);
 
-// get_conf_values.h
 int		get_resolution(t_conf *conf, char **conf_strings);
 int		get_textures(t_conf *conf, char **conf_strings);
 int		get_ceil_color(t_conf *conf, char **conf_strings);
 int		get_floor_color(t_conf *conf, char **conf_strings);
 
-// error.h
 void	print_error(int code);
+
+#endif
