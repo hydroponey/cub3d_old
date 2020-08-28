@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 00:07:10 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/28 00:19:01 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,13 @@ int						check_config(t_conf *conf, char **conf_strings)
 	return (0);
 }
 
-void					free_conf_strings(char **conf_strings)
+int						read_config(t_conf *conf, char **conf_strings)
 {
-	int	i;
-
-	i = 0;
-	while (i < 8)
-		free(conf_strings[i++]);
-}
-
-int						parse_config(t_conf *conf)
-{
+	unsigned short	param_len;
+	unsigned int	i;
 	char			*line;
 	int				ret_gnl;
-	unsigned int	i;
-	unsigned short	param_len;
-	int				ret_check;
-	char 			*params[8] = {"R ", "NO ", "SO ", "WE ", "EA ", "S ", "F ", "C "};
-	char 			*conf_strings[8] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	char			*params[8];
 
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
@@ -103,10 +92,25 @@ int						parse_config(t_conf *conf)
 		if (!ret_gnl)
 			break ;
 	}
-	if (ret_gnl == -1)
+	return (ret_gnl);
+}
+
+int						parse_config(t_conf *conf)
+{
+	unsigned int	i;
+	int				ret_check;
+	char 			*params[8];
+	char 			**conf_strings;
+
+	params = {"R ", "NO ", "SO ", "WE ", "EA ", "S ", "F ", "C "};
+	if (!(conf_strings = (char**)malloc(sizeof(char *) * 8)))
+		return (ERR_MALLOC_CUBE);
+	if (read_config(conf, conf_strings) == -1)
 		return (ERR_GNL_FAIL);
 	ret_check = check_config(conf, conf_strings);
-	free_conf_strings(conf_strings);
+	i = 0;
+	while (i < 8)
+		free(conf_strings[i++]);
 	return (ret_check);
 }
 
