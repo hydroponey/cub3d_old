@@ -47,19 +47,19 @@ typedef struct  s_vars {
     void    *win;
 }               t_vars;
 
-int		is_param(char *data, int param_id);
-void	ft_freetab(char **tab);
-int		is_numeric(char *str);
+int				is_param(char *data, int param_id);
+void			ft_freetab(char **tab);
+int				is_numeric(char *str);
 
-int		check_args(t_conf **conf, int argc, char **argv);
-int     parse_config(t_conf *conf);
-void	free_config(t_conf *conf);
+int				check_args(t_conf **conf, int argc, char **argv);
+int     		parse_config(t_conf *conf);
+void			free_config(t_conf *conf);
 
-int		get_resolution(t_conf *conf, char **conf_strings);
-int		get_textures(t_conf *conf, char **conf_strings);
-int		get_ceil_color(t_conf *conf, char **conf_strings);
-int		get_floor_color(t_conf *conf, char **conf_strings);
+int				get_resolution(t_conf *conf, char **conf_strings);
+int				get_textures(t_conf *conf, char **conf_strings);
+int				get_ceil_color(t_conf *conf, char **conf_strings);
+int				get_floor_color(t_conf *conf, char **conf_strings);
 
-void	print_error(int code);
+void			print_error(int code);
 
 #endif
