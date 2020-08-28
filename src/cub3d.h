@@ -45,6 +45,11 @@ typedef struct  s_vars {
     void    *win;
 }               t_vars;
 
+// config_utils.h
+int		is_param(char *data, int param_id);
+void	ft_freetab(char **tab);
+int		is_numeric(char *str);
+
 // config.h
 int		check_args(t_conf **conf, int argc, char **argv);
 int     parse_config(t_conf *conf);

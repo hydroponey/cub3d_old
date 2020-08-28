@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 11:02:18 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/28 11:03:24 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,27 @@ int		is_param(char *data, int param_id)
 	if (ft_strncmp(data, params[param_id], param_len) == 0)
 		return (param_len);
 	return (-1);
+}
+
+void	ft_freetab(char **tab)
+{
+	char **start;
+
+	if (!tab)
+		return ;
+	start = tab;
+	while (*tab)
+		free(*tab++);
+	free(start);
+}
+
+int		is_numeric(char *str)
+{
+	while (*str != '\0')
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

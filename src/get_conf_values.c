@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 21:25:28 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 00:08:38 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/28 11:03:00 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 #include "cub3d.h"
 
 #include <stdio.h>
-
-static void				ft_freetab(char **tab)
-{
-	char **start;
-
-	if (!tab)
-		return ;
-	start = tab;
-	while (*tab)
-		free(*tab++);
-	free(start);
-}
-
-static int				is_numeric(char *str)
-{
-	while (*str != '\0')
-	{
-		if (!ft_isdigit(*str))
-			return (0);
-		str++;
-	}
-	return (1);
-}
 
 int						get_resolution(t_conf *conf, char **conf_strings)
 {
