@@ -6,14 +6,14 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 22:36:32 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 22:36:50 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/29 23:25:22 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_MESSAGES_H
 # define ERR_MESSAGES_H
 
-static const char *err_messages[17] = {"",
+static const char *g_err_messages[17] = {"",
 "Usage: ./cub3d <path_to_map.cub> [--save]\n",
 "Wrong map file extension.\n",
 "Failed to open map file.\n",
