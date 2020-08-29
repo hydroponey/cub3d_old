@@ -52,6 +52,14 @@ int     main(int argc, char **argv)
 		free_config(game_conf);
 		return (-1);
 	}
+	printf("R: %dx%d\n", game_conf->resolution.x, game_conf->resolution.y);
+	printf("NO: %s\n", game_conf->textures[TEXTURE_NO]);
+	printf("SO: %s\n", game_conf->textures[TEXTURE_SO]);
+	printf("WE: %s\n", game_conf->textures[TEXTURE_WE]);
+	printf("EA: %s\n", game_conf->textures[TEXTURE_EA]);
+	printf("S: %s\n", game_conf->textures[TEXTURE_S]);
+	printf("F: %d,%d,%d\n", game_conf->floor_color[0], game_conf->floor_color[1], game_conf->floor_color[2]);
+	printf("C: %d,%d,%d\n", game_conf->ceil_color[0], game_conf->ceil_color[1], game_conf->ceil_color[2]);
     if (!(vars.mlx = mlx_init()))
     {
         ft_putstr_fd("Error initializing mlx, exiting.\n", 1);

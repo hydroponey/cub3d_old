@@ -27,6 +27,7 @@
 # define TEXTURE_SO	1
 # define TEXTURE_WE	2
 # define TEXTURE_EA	3
+# define TEXTURE_S	4
 
 typedef struct	s_reso {
 	int	x;
@@ -53,7 +54,7 @@ void			ft_freetab(char **tab);
 int				is_numeric(char *str);
 
 int				check_args(t_conf **conf, int argc, char **argv);
-int	 		parse_config(t_conf *conf);
+int	 			parse_config(t_conf *conf);
 void			free_config(t_conf *conf);
 
 int				get_resolution(t_conf *conf, char **conf_strings);
