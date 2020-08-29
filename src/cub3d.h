@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-
 # define CUB3D_H
 
 # define CONF_R		0
@@ -22,7 +21,6 @@
 # define CONF_S		5
 # define CONF_F		6
 # define CONF_C		7
-
 # define TEXTURE_NO	0
 # define TEXTURE_SO	1
 # define TEXTURE_WE	2
@@ -54,7 +52,7 @@ void			ft_freetab(char **tab);
 int				is_numeric(char *str);
 
 int				check_args(t_conf **conf, int argc, char **argv);
-int	 			parse_config(t_conf *conf);
+int				parse_config(t_conf *conf);
 void			free_config(t_conf *conf);
 
 int				get_resolution(t_conf *conf, char **conf_strings);
