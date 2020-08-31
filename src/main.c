@@ -34,19 +34,19 @@ int		exit_hook(void *p __attribute__((unused)))
 
 int     main(int argc, char **argv)
 {
-    t_vars  vars;
-    t_reso  screen_res;
-    t_conf  *conf;
+	t_vars	vars;
+	t_reso	screen_res;
+	t_conf	*conf;
 	int		err;
 
 	conf = NULL;
 	err = 0;
-    if ((err = check_args(&conf, argc, argv)) != 0)
+	if ((err = check_args(&conf, argc, argv)) != 0)
 	{
 		print_error(err);
-        return (-1);
+		return (-1);
 	}
-    if ((err = parse_config(conf)) != 0)
+	if ((err = parse_config(conf)) != 0)
 	{
 		print_error(err);
 		free_config(conf);
@@ -60,13 +60,13 @@ int     main(int argc, char **argv)
 	printf("S: %s\n", conf->textures[TEXTURE_S]);
 	printf("F: %d,%d,%d\n", conf->floor_color[0], conf->floor_color[1], conf->floor_color[2]);
 	printf("C: %d,%d,%d\n", conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]);
-    if (!(vars.mlx = mlx_init()))
-    {
-        ft_putstr_fd("Error initializing mlx, exiting.\n", 1);
+	if (!(vars.mlx = mlx_init()))
+	{
+		ft_putstr_fd("Error initializing mlx, exiting.\n", 1);
 		free_config(conf);
-        return (-1);
-    }
-    mlx_get_screen_size(vars.mlx, &screen_res.x, &screen_res.y);
+		return (-1);
+	}
+	mlx_get_screen_size(vars.mlx, &screen_res.x, &screen_res.y);
 	conf->res.x = (conf->res.x > screen_res.x) ? screen_res.x : conf->res.x;
 	conf->res.y = (conf->res.y > screen_res.y) ? screen_res.y : conf->res.y;
 	vars.win = mlx_new_window(vars.mlx, conf->res.x, conf->res.y, "Cub3D");
