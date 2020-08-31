@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 21:25:28 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/29 16:26:53 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/31 23:46:40 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int						get_resolution(t_conf *conf, char **conf_strings)
 		err = ERR_R_NON_NUMERIC;
 	if (err == 0)
 	{
-		conf->resolution.x = ft_atoi(tab[0]);
-		conf->resolution.y = ft_atoi(tab[1]);
+		conf->res.x = ft_atoi(tab[0]);
+		conf->res.y = ft_atoi(tab[1]);
 	}
 	ft_freetab(tab);
 	return (err);

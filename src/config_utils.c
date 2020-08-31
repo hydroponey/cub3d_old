@@ -6,11 +6,34 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 11:04:49 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/31 21:27:12 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "cub3d.h"
+#include "errors.h"
+
+int		setup_config(t_conf **conf, char **argv, int fd, int save_bmp)
+{
+	int err;
+
+	err = ERR_SUCCESS;
+	if (!(*conf = (t_conf*)malloc(sizeof(t_conf))))
+		return (ERR_MALLOC_CUBE);
+	if (!err)
+		ft_bzero(*conf, sizeof(t_conf));
+	if (!err && !((*conf)->map_path = ft_strdup(argv[1])))
+		err = ERR_MALLOC_CUBE;
+	(*conf)->save_bmp = (save_bmp == 0) ? 1 : 0;
+	(*conf)->map_fd = fd;
+	if (err != ERR_SUCCESS)
+	{
+		free(*conf);
+		close(fd);
+	}
+	return (err);
+}
 
 int		is_param(char *data, int param_id)
 {

@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/28 22:36:11 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/31 23:48:45 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,25 @@ int						check_args(t_conf **conf, int argc, char **argv)
 	int		path_len;
 	int		save_bmp;
 	int		fd;
+	int		err;
+	int ret;
 
 	fd = -1;
+	err = 0;
+	*conf = NULL;
 	if (argc != 2 && argc != 3)
-		return (ERR_CMD_USAGE);
-	if ((path_len = ft_strlen(argv[1])) < 4)
-		return (ERR_CMD_USAGE);
-	if (ft_strncmp(&argv[1][path_len - 4], ".cub", 4) != 0)
-		return (ERR_CMD_BAD_EXT);
-	if (argc == 3 && (save_bmp = ft_strncmp(argv[2], "--save", 6)) != 0)
-		return (ERR_CMD_USAGE);
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		return (ERR_CMD_OPEN_FAIL);
-	if (!(*conf = (t_conf*)malloc(sizeof(t_conf))))
-	{
-		close(fd);
-		return (ERR_MALLOC);
-	}
-	ft_bzero(*conf, sizeof(t_conf));
-	(*conf)->map_path = ft_strdup(argv[1]);
-	(*conf)->save_bmp = (save_bmp == 0) ? 1 : 0;
-	(*conf)->map_fd = fd;
-	return (0);
+		err = ERR_CMD_USAGE;
+	if (!err && (path_len = ft_strlen(argv[1])) < 4)
+		err = ERR_CMD_USAGE;
+	if (!err && ft_strncmp(&argv[1][path_len - 4], ".cub", 4) != 0)
+		err = ERR_CMD_BAD_EXT;
+	if (!err && argc == 3 && (save_bmp = ft_strncmp(argv[2], "--save", 6)) != 0)
+		err = ERR_CMD_USAGE;
+	if (!err && (fd = open(argv[1], O_RDONLY)) == -1)
+		err = ERR_CMD_OPEN_FAIL;
+	if (!err && (ret = setup_config(conf, argv, fd, save_bmp)) != 0)
+		err = ret;
+	return (err);
 }
 
 int						check_config(t_conf *conf, char **conf_strings)
@@ -71,10 +68,14 @@ int						read_config(t_conf *conf, char **conf_strings)
 	unsigned int	i;
 	char			*line;
 	int				ret_gnl;
+	short int		parse_map;
 
 	ret_gnl = -1;
+	parse_map = 0;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
+		if (line[0] == '\r' || line[0] == '\n')
+			continue;
 		i = 0;
 		while (i < 8)
 		{
@@ -86,6 +87,12 @@ int						read_config(t_conf *conf, char **conf_strings)
 			}
 			i++;
 		}
+		if (conf_strings[8] != NULL)
+			parse_map = 1;
+		if (parse_map)
+		{
+			
+		}
 		free(line);
 		if (!ret_gnl)
 			break ;
@@ -96,21 +103,24 @@ int						read_config(t_conf *conf, char **conf_strings)
 int						parse_config(t_conf *conf)
 {
 	unsigned int	i;
-	int				ret_check;
 	char			**conf_strings;
+	int				err;
 
+	err = ERR_SUCCESS;
 	if (!(conf_strings = (char**)malloc(sizeof(char *) * 8)))
 		return (ERR_MALLOC_CUBE);
 	i = 0;
 	while (i < 8)
 		conf_strings[i++] = NULL;
 	if (read_config(conf, conf_strings) == -1)
-		return (ERR_GNL_FAIL);
-	ret_check = check_config(conf, conf_strings);
+		err = ERR_GNL_FAIL;
+	if (!err)
+		err = check_config(conf, conf_strings);
 	i = 0;
 	while (i < 8)
 		free(conf_strings[i++]);
-	return (ret_check);
+	free(conf_strings);
+	return (err);
 }
 
 void					free_config(t_conf *conf)

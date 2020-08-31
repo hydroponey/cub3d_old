@@ -21,11 +21,11 @@ SRCS	=	src/main.c \
 			src/get_next_line_utils.c
 OBJS	=	$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -DBUFFER_SIZE=1024 -g3 -Ilib
-CLIBS	=	-Llib/mlx -Llib/libft -lft -lmlx -lXext -lX11
+CFLAGS	=	-Wall -Wextra -Werror -DBUFFER_SIZE=1024 -g3 -I.
+CLIBS	=	-Lmlx -Llibft -lft -lmlx -lXext -lX11
 NAME	=	cub3d
-MLX		=	lib/mlx/libmlx.a
-LIBFT	=	lib/libft/libft.a
+MLX		=	mlx/libmlx.a
+LIBFT	=	libft/libft.a
 
 all:		$(NAME)
 
@@ -33,17 +33,17 @@ $(OBJS):	$(OBJDIR)/%.o : $(SRCDIR)/%.c
 			$(CC) $(CFLAGS) -c $< -o $@
 
 $(MLX):
-			$(MAKE) -C lib/mlx
+			$(MAKE) -C mlx
 
 $(LIBFT):
-			$(MAKE) -C lib/libft
+			$(MAKE) -C libft
 
 $(NAME):	$(OBJS) $(MLX) $(LIBFT)
 			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CLIBS)
 
 clean:
-			$(MAKE) -C lib/mlx clean
-			$(MAKE) -C lib/libft fclean
+			$(MAKE) -C mlx clean
+			$(MAKE) -C libft fclean
 			rm -f $(OBJS)
 
 fclean:		clean

@@ -36,10 +36,11 @@ typedef struct	s_conf {
 	char	*map_path;
 	int		save_bmp;
 	int		map_fd;
-	t_reso	resolution;
+	t_reso	res;
 	char	*textures[5];
 	int		floor_color[3];
 	int		ceil_color[3];
+	char	**map;
 }				t_conf;
 
 typedef struct	s_vars {
@@ -47,6 +48,7 @@ typedef struct	s_vars {
 	void	*win;
 }				t_vars;
 
+int				setup_config(t_conf **conf, char **argv, int fd, int save_bmp);
 int				is_param(char *data, int param_id);
 void			ft_freetab(char **tab);
 int				is_numeric(char *str);

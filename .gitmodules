@@ -5,5 +5,5 @@
 	path = libft
 	url = https://github.com/hydroponey/libft
 [submodule "get_next_line"]
-	path = get_next_line
+	path = src
 	url = https://github.com/hydroponey/get_next_line
