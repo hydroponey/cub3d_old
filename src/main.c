@@ -16,6 +16,7 @@
 #include "libft/libft.h"
 #include "mlx/mlx.h"
 #include "cub3d.h"
+#include "errors.h"
 
 int     key_hook(int key, void *p __attribute__((unused)))
 {
@@ -62,7 +63,7 @@ int     main(int argc, char **argv)
 	printf("C: %d,%d,%d\n", conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]);
 	if (!(vars.mlx = mlx_init()))
 	{
-		ft_putstr_fd("Error initializing mlx, exiting.\n", 1);
+		print_error(ERR_MLX_INIT_FAIL);
 		free_config(conf);
 		return (-1);
 	}
@@ -71,7 +72,11 @@ int     main(int argc, char **argv)
 	conf->res.y = (conf->res.y > screen_res.y) ? screen_res.y : conf->res.y;
 	vars.win = mlx_new_window(vars.mlx, conf->res.x, conf->res.y, "Cub3D");
 	if (!vars.win)
+	{
+		print_error(ERR_MLX_NEW_WINDOW_FAIL);
+		free_config(conf);
 		return (-1);
+	}
 	mlx_hook(vars.win, 17, (1L<<17), exit_hook, 0);
 	mlx_hook(vars.win, 2, (1L<<0), key_hook, 0);
 	mlx_loop(vars.mlx);

@@ -6,14 +6,14 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 22:36:32 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/29 23:27:43 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/01 00:02:24 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_MESSAGES_H
 # define ERR_MESSAGES_H
 
-static const char *g_err_messages[17] = {	"",
+static const char *g_err_messages[19] = {	"",
 											"Usage: ./cub3d <path_to_map.cub> [--save]\n",
 											"Wrong map file extension.\n",
 											"Failed to open map file.\n",
@@ -29,7 +29,9 @@ static const char *g_err_messages[17] = {	"",
 											"Floor color is missing.\n",
 											"Ceil color value is not numeric.\n",
 											"Floor color value is not numeric.\n",
-											"Ceil has a wrong RGB value.\n"
+											"Ceil has a wrong RGB value.\n",
+											"Failed to initialize MLX.\n",
+											"Failed to create a new window.\n"
 										};
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:53:27 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/29 23:23:34 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/08/31 23:59:27 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@
 # define ERR_CEIL_NON_NUMERIC		14
 # define ERR_FLOOR_NON_NUMERIC		15
 # define ERR_CEIL_WRONG_RGB_VALUE	16
+
+# define ERR_MLX_INIT_FAIL			17
+# define ERR_MLX_NEW_WINDOW_FAIL	18
 
 #endif
