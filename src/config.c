@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/31 23:48:45 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/01 00:03:13 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ int						parse_config(t_conf *conf)
 
 void					free_config(t_conf *conf)
 {
+	if (!conf)
+		return ;
 	close(conf->map_fd);
 	free(conf->map_path);
 	free(conf->textures[0]);
