@@ -61,6 +61,13 @@ int     main(int argc, char **argv)
 	printf("S: %s\n", conf->textures[TEXTURE_S]);
 	printf("F: %d,%d,%d\n", conf->floor_color[0], conf->floor_color[1], conf->floor_color[2]);
 	printf("C: %d,%d,%d\n", conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]);
+	int i;
+	i = 0;
+	while (i < conf->map_lines)
+	{
+		printf("MAP: %s\n", conf->map[i]);
+		i++;
+	}
 	if (!(vars.mlx = mlx_init()))
 	{
 		print_error(ERR_MLX_INIT_FAIL);

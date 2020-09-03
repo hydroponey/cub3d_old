@@ -41,6 +41,7 @@ typedef struct	s_conf {
 	int		floor_color[3];
 	int		ceil_color[3];
 	char	**map;
+	int		map_lines;
 }				t_conf;
 
 typedef struct	s_vars {

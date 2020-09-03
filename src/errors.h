@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:53:27 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/31 23:59:27 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/02 13:58:21 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@
 
 # define ERR_MLX_INIT_FAIL			17
 # define ERR_MLX_NEW_WINDOW_FAIL	18
+
+# define ERR_INVALID_MAP			19
 
 #endif

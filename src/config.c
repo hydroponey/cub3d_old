@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/01 00:03:13 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/03 18:40:22 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,25 @@ int						check_args(t_conf **conf, int argc, char **argv)
 	return (err);
 }
 
+int						check_map(t_conf *conf)
+{
+	int err;
+
+	(void)conf;
+	err = (ERR_SUCCESS);
+	return (err);
+}
+
 int						check_config(t_conf *conf, char **conf_strings)
 {
 	int	retval;
 
-	retval = 0;
-	if ((retval = get_resolution(conf, conf_strings)) != 0)
-		return (retval);
-	if ((retval = get_textures(conf, conf_strings)) != 0)
-		return (retval);
-	if ((retval = get_ceil_color(conf, conf_strings)) != 0)
-		return (retval);
-	if ((retval = get_floor_color(conf, conf_strings)) != 0)
-		return (retval);
-	return (0);
+	retval = get_resolution(conf, conf_strings)		|
+			 get_textures(conf, conf_strings)		|
+			 get_ceil_color(conf, conf_strings)		|
+			 get_floor_color(conf, conf_strings)	|
+			 check_map(conf);
+	return (retval);
 }
 
 int						read_config(t_conf *conf, char **conf_strings)
@@ -68,30 +73,50 @@ int						read_config(t_conf *conf, char **conf_strings)
 	unsigned int	i;
 	char			*line;
 	int				ret_gnl;
-	short int		parse_map;
 
 	ret_gnl = -1;
-	parse_map = 0;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
-		if (line[0] == '\r' || line[0] == '\n')
-			continue;
-		i = 0;
-		while (i < 8)
+		if (conf_strings[7] != NULL)
 		{
-			if ((param_len = is_param(line, i)) != -1)
+			if (conf->map == NULL && ft_strlen(ft_strtrim(line, " \t")) == 0)
+				continue;
+			printf("line: |%s|\n", line);
+			if (conf->map != NULL && ft_strchr(line, '1') == NULL)
 			{
-				if (!conf_strings[i])
-					conf_strings[i] = ft_strtrim((line + param_len), " \t");
+				ret_gnl = ERR_INVALID_MAP;
+				free(line);
 				break ;
 			}
-			i++;
+			if (!(conf->map = realloc(conf->map, sizeof(char *) * (conf->map_lines + 1))))
+			{
+				ret_gnl = ERR_MALLOC_CUBE;
+				free(line);
+				break ;
+			}
+			if (!(conf->map[conf->map_lines++] = ft_strdup(line)))
+			{
+				ret_gnl = ERR_MALLOC_CUBE;
+				free(line);
+				break ;
+			}
 		}
-		if (conf_strings[8] != NULL)
-			parse_map = 1;
-		if (parse_map)
+		else
 		{
-			
+			i = 0;
+			while (i < 8)
+			{
+				if ((param_len = is_param(line, i)) != -1)
+				{
+					if (!conf_strings[i])
+					{
+						if (!(conf_strings[i] = ft_strtrim((line + param_len), " \t")))
+							ret_gnl = ERR_MALLOC_CUBE;
+					}
+					break ;
+				}
+				i++;
+			}
 		}
 		free(line);
 		if (!ret_gnl)
@@ -112,8 +137,7 @@ int						parse_config(t_conf *conf)
 	i = 0;
 	while (i < 8)
 		conf_strings[i++] = NULL;
-	if (read_config(conf, conf_strings) == -1)
-		err = ERR_GNL_FAIL;
+	err = read_config(conf, conf_strings);
 	if (!err)
 		err = check_config(conf, conf_strings);
 	i = 0;
@@ -134,5 +158,8 @@ void					free_config(t_conf *conf)
 	free(conf->textures[2]);
 	free(conf->textures[3]);
 	free(conf->textures[4]);
+	while (conf->map_lines--)
+		free(conf->map[conf->map_lines]);
+	free(conf->map);
 	free(conf);
 }
