@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/03 19:10:51 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/03 19:11:30 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int						check_config(t_conf *conf, char **conf_strings)
 {
 	int	retval;
 
-	retval = get_resolution(conf, conf_strings) |
-			 get_textures(conf, conf_strings) |
-			 get_ceil_color(conf, conf_strings) |
-			 get_floor_color(conf, conf_strings) |
+	retval = get_resolution(conf, conf_strings) ||
+			 get_textures(conf, conf_strings) ||
+			 get_ceil_color(conf, conf_strings) ||
+			 get_floor_color(conf, conf_strings) ||
 			 check_map(conf);
 	return (retval);
 }
