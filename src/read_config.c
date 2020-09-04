@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 22:57:06 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 23:00:21 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,21 @@ int					read_map(t_conf *conf)
 	char			*line;
 	int				ret_gnl;
 	int				err;
+	char			*trimmed;
 
 	err = ERR_SUCCESS;
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
-		if (conf->map == NULL && ft_strlen(ft_strtrim(line, " \t")) == 0)
+		trimmed = ft_strtrim(line, " \t");
+		if (conf->map == NULL && ft_strlen(trimmed) == 0)
 		{
+			free(trimmed);
 			free(line);
 			continue ;
 		}
 		err = add_map_line(conf, line);
+		free(trimmed);
 		free(line);
 		if (ret_gnl == 0)
 			break ;
