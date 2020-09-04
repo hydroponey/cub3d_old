@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 20:19:11 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 20:46:40 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,32 @@
 #include "libft/libft.h"
 #include "get_next_line.h"
 
-int						read_params(t_conf *conf, char **conf_strings)
+int					parse_param(char *line, char **conf_strings)
+{
+	unsigned int	i;
+	int				err;
+
+	i = 0;
+	err = ERR_SUCCESS;
+	while (i < 8)
+	{
+		if ((param_len = is_param(line, i)) != -1)
+		{
+			if (!conf_strings[i])
+			{
+				if (!(conf_strings[i] = ft_strtrim((line + param_len), " \t")))
+					err = ERR_MALLOC_CUBE;
+			}
+			break ;
+		}
+		i++;
+	}
+	return (err);
+}
+
+int					read_params(t_conf *conf, char **conf_strings)
 {
 	int				param_len;
-	unsigned int	i;
 	char			*line;
 	int				err_gnl;
 	int				err;
@@ -28,22 +50,9 @@ int						read_params(t_conf *conf, char **conf_strings)
 	err_gnl = -1;
 	while ((err_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
-		i = 0;
-		while (i < 8)
-		{
-			if ((param_len = is_param(line, i)) != -1)
-			{
-				if (!conf_strings[i])
-				{
-					if (!(conf_strings[i] = ft_strtrim((line + param_len), " \t")))
-						err = ERR_MALLOC_CUBE;
-				}
-				break ;
-			}
-			i++;
-		}
+		err = parse_param(line, conf_strings);
 		free(line);
-		if (err_gnl == 0)
+		if (err != ERR_SUCCESS || err_gnl == 0)
 			break ;
 	}
 	if (err_gnl == -1)
@@ -51,7 +60,7 @@ int						read_params(t_conf *conf, char **conf_strings)
 	return (err);
 }
 
-int						read_map(t_conf *conf)
+int					read_map(t_conf *conf)
 {
 	char			*line;
 	int				ret_gnl;
