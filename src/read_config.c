@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 21:34:31 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 22:55:37 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int					add_map_line(t_conf *conf, char *line)
 	int				new_size;
 
 	err = ERR_SUCCESS;
-	if (ft_strchr(line, '1') == NULL)
-		err = ERR_INVALID_MAP;
 	new_size = sizeof(char *) * (conf->map_lines + 1);
 	if (!err && !(conf->map = realloc(conf->map, new_size)))
 		err = ERR_MALLOC_CUBE;
@@ -81,8 +79,10 @@ int					read_map(t_conf *conf)
 	char			*line;
 	int				ret_gnl;
 	int				err;
+	int				map_end;
 
 	err = ERR_SUCCESS;
+	map_end = 0;
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
@@ -93,7 +93,7 @@ int					read_map(t_conf *conf)
 		}
 		err = add_map_line(conf, line);
 		free(line);
-		if (ret_gnl == 0 || err != ERR_SUCCESS)
+		if (ret_gnl == 0)
 			break ;
 	}
 	if (ret_gnl == -1)
