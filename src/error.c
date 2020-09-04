@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:51:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/03 18:41:01 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 09:47:09 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void		print_error(int code)
 	const char *message;
 
 	ft_putstr_fd("Error\n", 1);
-	printf("Code: %d\n", code);
 	if ((message = get_error_msg(code)) != NULL)
 		ft_putstr_fd((char *)message, 1);
 }

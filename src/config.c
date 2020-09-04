@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:37 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/03 19:24:53 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 17:27:36 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,64 @@ int						check_config(t_conf *conf, char **conf_strings)
 	return (retval);
 }
 
-int						read_config(t_conf *conf, char **conf_strings)
+int						read_params(t_conf *conf, char **conf_strings)
 {
 	int				param_len;
 	unsigned int	i;
+	char			*line;
+	int				err_gnl;
+	int				err;
+
+	err = ERR_SUCCESS;
+	err_gnl = -1;
+	while ((err_gnl = get_next_line(conf->map_fd, &line)) >= 0)
+	{
+		i = 0;
+		while (i < 8)
+		{
+			if ((param_len = is_param(line, i)) != -1)
+			{
+				if (!conf_strings[i])
+				{
+					if (!(conf_strings[i] = ft_strtrim((line + param_len), " \t")))
+						err = ERR_MALLOC_CUBE;
+				}
+				break ;
+			}
+			i++;
+		}
+		free(line);
+		if (err_gnl == 0)
+			break ;
+	}
+	if (err_gnl == -1)
+		return (ERR_GNL_FAIL);
+	return (err);
+}
+
+int						read_map(t_conf *conf)
+{
 	char			*line;
 	int				ret_gnl;
 
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
-		if (conf_strings[7] != NULL)
+		if (conf->map == NULL && ft_strlen(ft_strtrim(line, " \t")) > 0)
 		{
-			if (conf->map == NULL && ft_strlen(ft_strtrim(line, " \t")) == 0)
-				continue;
-			printf("line: |%s|\n", line);
-			if (conf->map != NULL && ft_strchr(line, '1') == NULL)
+			if (ft_strchr(line, '1') == NULL)
 			{
-				ret_gnl = ERR_INVALID_MAP;
-				free(line);
-				break ;
+				if (conf->map == NULL)
+				{
+					free(line);
+					continue;
+				}
+				else
+				{
+					ret_gnl = ERR_INVALID_MAP;
+					free(line);
+					break ;
+				}
 			}
 			if (!(conf->map = realloc(conf->map, sizeof(char *) * (conf->map_lines + 1))))
 			{
@@ -101,25 +139,8 @@ int						read_config(t_conf *conf, char **conf_strings)
 				break ;
 			}
 		}
-		else
-		{
-			i = 0;
-			while (i < 8)
-			{
-				if ((param_len = is_param(line, i)) != -1)
-				{
-					if (!conf_strings[i])
-					{
-						if (!(conf_strings[i] = ft_strtrim((line + param_len), " \t")))
-							ret_gnl = ERR_MALLOC_CUBE;
-					}
-					break ;
-				}
-				i++;
-			}
-		}
 		free(line);
-		if (!ret_gnl)
+		if (ret_gnl == 0)
 			break ;
 	}
 	return (ret_gnl);
@@ -137,7 +158,8 @@ int						parse_config(t_conf *conf)
 	i = 0;
 	while (i < 8)
 		conf_strings[i++] = NULL;
-	err = read_config(conf, conf_strings);
+	err = read_params(conf, conf_strings);
+	err |= read_map(conf);
 	if (!err)
 		err = check_config(conf, conf_strings);
 	i = 0;
