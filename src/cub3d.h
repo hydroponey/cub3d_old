@@ -70,4 +70,6 @@ int		parse_config(t_conf *conf);
 int		read_params(t_conf *conf, char **conf_strings);
 int		read_map(t_conf *conf);
 
+void	print_error(int code);
+
 #endif
