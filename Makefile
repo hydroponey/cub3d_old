@@ -13,7 +13,9 @@
 SRCDIR	= src
 OBJDIR	= obj
 SRCS	=	src/main.c \
-			src/config.c \
+			src/check_config.c \
+			src/parse_config.c \
+			src/read_config.c \
 			src/config_utils.c \
 			src/get_conf_values.c \
 			src/error.c \
