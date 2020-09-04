@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 21:16:02 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 21:28:31 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int					parse_param(char *line, char **conf_strings)
 	return (err);
 }
 
+// OK
 int					read_params(t_conf *conf, char **conf_strings)
 {
 	char			*line;
