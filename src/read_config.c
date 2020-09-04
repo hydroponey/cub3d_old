@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 21:12:18 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 21:14:13 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,13 @@ int					read_params(t_conf *conf, char **conf_strings)
 int					add_map_line(t_conf *conf, char *line)
 {
 	int				err;
+	int				new_size;
 
 	err = ERR_SUCCESS;
 	if (ft_strchr(line, '1') == NULL)
 		err = ERR_INVALID_MAP;
-	if (!err && !(conf->map = realloc(conf->map, sizeof(char *) * (conf->map_lines + 1))))
+	new_size = sizeof(char *) * (conf->map_lines + 1);
+	if (!err && !(conf->map = realloc(conf->map, new_size)))
 		err = ERR_MALLOC_CUBE;
 	if (!err && !(conf->map[conf->map_lines++] = ft_strdup(line)))
 		err = ERR_MALLOC_CUBE;
