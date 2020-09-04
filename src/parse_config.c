@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:34 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 20:18:47 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 21:19:30 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int					parse_config(t_conf *conf)
 		conf_strings[i++] = NULL;
 	err = read_params(conf, conf_strings);
 	err |= read_map(conf);
+	printf("read params and map: %d\n", err);
 	if (!err)
 		err = check_config(conf, conf_strings);
+	printf("config check: %d\n", err);
 	i = 0;
 	while (i < 8)
 		free(conf_strings[i++]);

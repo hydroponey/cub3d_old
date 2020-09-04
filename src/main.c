@@ -42,11 +42,13 @@ int     main(int argc, char **argv)
 
 	conf = NULL;
 	err = 0;
+	printf("check_args\n");
 	if ((err = check_args(&conf, argc, argv)) != 0)
 	{
 		print_error(err);
 		return (-1);
 	}
+	printf("parse_config\n");
 	if ((err = parse_config(conf)) != 0)
 	{
 		print_error(err);
