@@ -49,20 +49,25 @@ typedef struct	s_vars {
 	void	*win;
 }				t_vars;
 
-int				setup_config(t_conf **conf, char **argv, int fd, int save_bmp);
-int				is_param(char *data, int param_id);
-void			ft_freetab(char **tab);
-int				is_numeric(char *str);
+int		check_args(t_conf **conf, int argc, char **argv);
+int		check_map(t_conf *conf);
+int		check_config(t_conf *conf, char **conf_strings);
 
-int				check_args(t_conf **conf, int argc, char **argv);
-int				parse_config(t_conf *conf);
-void			free_config(t_conf *conf);
+int		setup_config(t_conf **conf, char **argv, int fd, int save_bmp);
+int		is_param(char *data, int param_id);
+void	ft_freetab(char **tab);
+int		is_numeric(char *str);
+void	free_config(t_conf *conf);
 
-int				get_resolution(t_conf *conf, char **conf_strings);
-int				get_textures(t_conf *conf, char **conf_strings);
-int				get_ceil_color(t_conf *conf, char **conf_strings);
-int				get_floor_color(t_conf *conf, char **conf_strings);
+int		set_rgb(int *dest, char **data);
+int		get_resolution(t_conf *conf, char **conf_strings);
+int		get_textures(t_conf *conf, char **conf_strings);
+int		get_ceil_color(t_conf *conf, char **conf_strings);
+int		get_floor_color(t_conf *conf, char **conf_strings);
 
-void			print_error(int code);
+int		parse_config(t_conf *conf);
+
+int		read_params(t_conf *conf, char **conf_strings);
+int		read_map(t_conf *conf);
 
 #endif

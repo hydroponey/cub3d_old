@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/01 17:00:52 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 20:09:14 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,21 @@ int		is_numeric(char *str)
 		str++;
 	}
 	return (1);
+}
+
+void				free_config(t_conf *conf)
+{
+	if (!conf)
+		return ;
+	close(conf->map_fd);
+	free(conf->map_path);
+	free(conf->textures[0]);
+	free(conf->textures[1]);
+	free(conf->textures[2]);
+	free(conf->textures[3]);
+	free(conf->textures[4]);
+	while (conf->map_lines--)
+		free(conf->map[conf->map_lines]);
+	free(conf->map);
+	free(conf);
 }
