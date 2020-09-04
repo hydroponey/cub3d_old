@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 20:46:40 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 21:12:18 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 int					parse_param(char *line, char **conf_strings)
 {
+	int				param_len;
 	unsigned int	i;
 	int				err;
 
@@ -41,7 +42,6 @@ int					parse_param(char *line, char **conf_strings)
 
 int					read_params(t_conf *conf, char **conf_strings)
 {
-	int				param_len;
 	char			*line;
 	int				err_gnl;
 	int				err;
@@ -60,46 +60,41 @@ int					read_params(t_conf *conf, char **conf_strings)
 	return (err);
 }
 
+int					add_map_line(t_conf *conf, char *line)
+{
+	int				err;
+
+	err = ERR_SUCCESS;
+	if (ft_strchr(line, '1') == NULL)
+		err = ERR_INVALID_MAP;
+	if (!err && !(conf->map = realloc(conf->map, sizeof(char *) * (conf->map_lines + 1))))
+		err = ERR_MALLOC_CUBE;
+	if (!err && !(conf->map[conf->map_lines++] = ft_strdup(line)))
+		err = ERR_MALLOC_CUBE;
+	return (err);
+}
+
 int					read_map(t_conf *conf)
 {
 	char			*line;
 	int				ret_gnl;
+	int				err;
 
+	err = ERR_SUCCESS;
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
-		if (conf->map == NULL && ft_strlen(ft_strtrim(line, " \t")) > 0)
+		if (conf->map == NULL && ft_strlen(ft_strtrim(line, " \t")) == 0)
 		{
-			if (ft_strchr(line, '1') == NULL)
-			{
-				if (conf->map == NULL)
-				{
-					free(line);
-					continue;
-				}
-				else
-				{
-					ret_gnl = ERR_INVALID_MAP;
-					free(line);
-					break ;
-				}
-			}
-			if (!(conf->map = realloc(conf->map, sizeof(char *) * (conf->map_lines + 1))))
-			{
-				ret_gnl = ERR_MALLOC_CUBE;
-				free(line);
-				break ;
-			}
-			if (!(conf->map[conf->map_lines++] = ft_strdup(line)))
-			{
-				ret_gnl = ERR_MALLOC_CUBE;
-				free(line);
-				break ;
-			}
+			free(line);
+			continue ;
 		}
+		err = add_map_line(conf, line);
 		free(line);
-		if (ret_gnl == 0)
+		if (ret_gnl == 0 || err != ERR_SUCCESS)
 			break ;
 	}
-	return (ret_gnl);
+	if (ret_gnl == -1)
+		err = ERR_GNL_FAIL;
+	return (err);
 }
