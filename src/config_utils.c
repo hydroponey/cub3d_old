@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 20:09:14 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 20:27:14 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		is_numeric(char *str)
 	return (1);
 }
 
-void				free_config(t_conf *conf)
+void	free_config(t_conf *conf)
 {
 	if (!conf)
 		return ;
