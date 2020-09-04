@@ -6,10 +6,11 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:34 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 21:19:30 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/04 21:25:14 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "cub3d.h"
 #include "errors.h"
