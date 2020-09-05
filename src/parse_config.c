@@ -6,11 +6,10 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:34 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 22:53:01 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/05 14:40:36 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "cub3d.h"
 #include "errors.h"
@@ -28,12 +27,9 @@ int					parse_config(t_conf *conf)
 	while (i < 8)
 		conf_strings[i++] = NULL;
 	err = read_params(conf, conf_strings);
-	printf("read params: %d\n", err);
 	err = (err == ERR_SUCCESS) ? read_map(conf) : err;
-	printf("read map: %d\n", err);
 	if (!err)
 		err = check_config(conf, conf_strings);
-	printf("config check: %d\n", err);
 	i = 0;
 	while (i < 8)
 		free(conf_strings[i++]);
