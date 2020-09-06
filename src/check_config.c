@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:06:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 16:16:56 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/06 23:40:12 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int						check_args(t_conf **conf, int argc, char **argv)
 
 int						trim_end_of_map(t_conf *conf)
 {
-	int 		err;
+	int			err;
 	short int	is_empty;
 	char		*trimmed;
 
@@ -74,7 +74,7 @@ int						trim_end_of_map(t_conf *conf)
 
 int						check_map(t_conf *conf)
 {
-	int 		err;
+	int			err;
 	char		*trimmed;
 
 	err = ERR_SUCCESS;
