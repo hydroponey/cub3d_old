@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 19:14:18 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/06 23:42:04 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,8 @@ int						transform_line(t_conf *conf, int **map, int x)
 		}
 		else
 		{
-			printf("bad character: %c\n", c);
 			err = ERR_BAD_MAP_CHAR;
-			break;
+			break ;
 		}
 		y++;
 	}
