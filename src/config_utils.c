@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 23:42:04 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/06 23:43:58 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		is_param(char *data, int param_id)
 	return (-1);
 }
 
-int						get_max_width(t_conf *conf)
+int		get_max_width(t_conf *conf)
 {
 	int		i;
 	int		max_width;
@@ -77,7 +77,7 @@ int						get_max_width(t_conf *conf)
 	return (max_width);
 }
 
-int						transform_line(t_conf *conf, int **map, int x)
+int		transform_line(t_conf *conf, int **map, int x)
 {
 	int		y;
 	int		len;
@@ -118,7 +118,7 @@ int						transform_line(t_conf *conf, int **map, int x)
 	return (err);
 }
 
-int						transform_map(t_conf *conf)
+int		transform_map(t_conf *conf)
 {
 	int	**map;
 	int	width;
