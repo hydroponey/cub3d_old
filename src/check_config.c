@@ -6,10 +6,11 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:06:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 20:27:05 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/06 16:16:56 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -44,12 +45,50 @@ int						check_args(t_conf **conf, int argc, char **argv)
 	return (err);
 }
 
+int						trim_end_of_map(t_conf *conf)
+{
+	int 		err;
+	short int	is_empty;
+	char		*trimmed;
+
+	err = ERR_SUCCESS;
+	is_empty = 1;
+	while (is_empty)
+	{
+		if (!(trimmed = ft_strtrim(conf->map_text[conf->map_lines - 1], " \t")))
+		{
+			err = ERR_MALLOC_CUBE;
+			break ;
+		}
+		if (ft_strlen(trimmed) == 0)
+		{
+			free(conf->map_text[conf->map_lines - 1]);
+			conf->map_lines--;
+		}
+		else
+			is_empty = 0;
+		free(trimmed);
+	}
+	return (err);
+}
+
 int						check_map(t_conf *conf)
 {
-	int err;
+	int 		err;
+	char		*trimmed;
 
-	(void)conf;
-	err = (ERR_SUCCESS);
+	err = ERR_SUCCESS;
+	if (conf->map_text == NULL)
+		err = ERR_MAP_NOT_PARSED;
+	if ((err = trim_end_of_map(conf)) != ERR_SUCCESS)
+		return (err);
+	trimmed = ft_strtrim(conf->map_text[conf->map_lines - 1], " 1");
+	if (ft_strlen(trimmed) != 0)
+		err = ERR_BAD_MAP_END;
+	free(trimmed);
+	trimmed = ft_strtrim(conf->map_text[0], " 1");
+	if (ft_strlen(trimmed) != 0)
+		err = ERR_BAD_MAP_START;
 	return (err);
 }
 
@@ -57,10 +96,12 @@ int						check_config(t_conf *conf, char **conf_strings)
 {
 	int	retval;
 
-	retval = get_resolution(conf, conf_strings) ||
-				get_textures(conf, conf_strings) ||
-				get_ceil_color(conf, conf_strings) ||
-				get_floor_color(conf, conf_strings) ||
-				check_map(conf);
+	retval = ERR_SUCCESS;
+	retval = get_resolution(conf, conf_strings);
+	retval = (!retval) ? get_textures(conf, conf_strings) : retval;
+	retval = (!retval) ? get_ceil_color(conf, conf_strings) : retval;
+	retval = (!retval) ? get_floor_color(conf, conf_strings) : retval;
+	retval = (!retval) ? check_map(conf) : retval;
+	retval = (!retval) ? transform_map(conf) : retval;
 	return (retval);
 }

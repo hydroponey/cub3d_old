@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/04 23:00:21 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/06 20:44:08 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int					add_map_line(t_conf *conf, char *line)
 
 	err = ERR_SUCCESS;
 	new_size = sizeof(char *) * (conf->map_lines + 1);
-	if (!err && !(conf->map = realloc(conf->map, new_size)))
+	if (!err && !(conf->map_text = realloc(conf->map_text, new_size)))
 		err = ERR_MALLOC_CUBE;
-	if (!err && !(conf->map[conf->map_lines++] = ft_strdup(line)))
+	if (!err && !(conf->map_text[conf->map_lines++] = ft_strdup(line)))
 		err = ERR_MALLOC_CUBE;
 	return (err);
 }
@@ -80,19 +80,36 @@ int					read_map(t_conf *conf)
 	int				ret_gnl;
 	int				err;
 	char			*trimmed;
+	int				end_of_map;
 
 	err = ERR_SUCCESS;
+	end_of_map = 0;
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
 		trimmed = ft_strtrim(line, " \t");
-		if (conf->map == NULL && ft_strlen(trimmed) == 0)
+		if (conf->map_text == NULL && ft_strlen(trimmed) == 0)
 		{
 			free(trimmed);
 			free(line);
 			continue ;
 		}
-		err = add_map_line(conf, line);
+		if (end_of_map == 1 && ft_strlen(trimmed) > 0)
+		{
+			err = ERR_MAP_EMPTY_LINE;
+			free(trimmed);
+			free(line);
+			break ;
+		}
+		if (ft_strlen(trimmed) == 0 && ret_gnl != 0)
+		{
+			end_of_map = 1;
+			free(trimmed);
+			free(line);
+			continue ;
+		}
+		if (end_of_map == 0)
+			err = add_map_line(conf, line);
 		free(trimmed);
 		free(line);
 		if (ret_gnl == 0)

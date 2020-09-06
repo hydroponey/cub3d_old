@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 21:25:28 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/31 23:46:40 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/06 15:55:15 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ int						get_textures(t_conf *conf, char **conf_strings)
 			err = ERR_TEXTURE_EMPTY;
 			break ;
 		}
-		conf->textures[i] = ft_strdup(conf_strings[i + 1]);
+		if (!(conf->textures[i] = ft_strdup(conf_strings[i + 1])))
+		{
+			err = ERR_MALLOC_CUBE;
+			break ;
+		}
 		i++;
 	}
 	return (err);

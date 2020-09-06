@@ -42,19 +42,20 @@ int     main(int argc, char **argv)
 
 	conf = NULL;
 	err = 0;
-	printf("check_args\n");
+	//printf("check_args\n");
 	if ((err = check_args(&conf, argc, argv)) != 0)
 	{
 		print_error(err);
 		return (-1);
 	}
-	printf("parse_config\n");
+	//printf("parse_config\n");
 	if ((err = parse_config(conf)) != 0)
 	{
 		print_error(err);
 		free_config(conf);
 		return (-1);
 	}
+	/*printf("parse_config: %d\n", err);
 	printf("R: %dx%d\n", conf->res.x, conf->res.y);
 	printf("NO: %s\n", conf->textures[TEXTURE_NO]);
 	printf("SO: %s\n", conf->textures[TEXTURE_SO]);
@@ -62,14 +63,7 @@ int     main(int argc, char **argv)
 	printf("EA: %s\n", conf->textures[TEXTURE_EA]);
 	printf("S: %s\n", conf->textures[TEXTURE_S]);
 	printf("F: %d,%d,%d\n", conf->floor_color[0], conf->floor_color[1], conf->floor_color[2]);
-	printf("C: %d,%d,%d\n", conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]);
-	int i;
-	i = 0;
-	while (i < conf->map_lines)
-	{
-		printf("MAP: %s\n", conf->map[i]);
-		i++;
-	}
+	printf("C: %d,%d,%d\n", conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]);*/
 	if (!(vars.mlx = mlx_init()))
 	{
 		print_error(ERR_MLX_INIT_FAIL);
