@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/08 09:56:57 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 09:58:02 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int					add_map_line(t_conf *conf, char *line)
 	return (err);
 }
 
-int					check_line(t_conf *conf, int *map_end, char *line, int ret_gnl)
+int					check_line(t_conf *conf, int *end, char *line, int ret_gnl)
 {
 	int				err;
 	char			*trimmed;
@@ -87,11 +87,11 @@ int					check_line(t_conf *conf, int *map_end, char *line, int ret_gnl)
 		free(trimmed);
 		return (err);
 	}
-	if (!err && *map_end == 1 && ft_strlen(trimmed) > 0)
+	if (!err && *end == 1 && ft_strlen(trimmed) > 0)
 		err = ERR_MAP_EMPTY_LINE;
 	if (!err && ft_strlen(trimmed) == 0 && ret_gnl != 0)
-		*map_end = 1;
-	if (!err && *map_end == 0)
+		*end = 1;
+	if (!err && *end == 0)
 		err = add_map_line(conf, line);
 	free(trimmed);
 	return (err);
