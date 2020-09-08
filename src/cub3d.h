@@ -45,6 +45,7 @@ typedef struct	s_conf {
 	char	**map_text;
 	int		map_lines;
 	int		**map;
+	t_reso	map_dim;
 }				t_conf;
 
 typedef struct	s_vars {

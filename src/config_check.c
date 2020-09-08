@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:06:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/08 08:33:55 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 16:45:13 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int						check_map(t_conf *conf)
 	trimmed = ft_strtrim(conf->map_text[0], " 1");
 	if (ft_strlen(trimmed) != 0)
 		err = ERR_BAD_MAP_START;
+	free(trimmed);
 	if (!err)
 		err = transform_map(conf);
 	if (!err && (conf->pos.x == -1 || conf->pos.y == -1))

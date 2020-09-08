@@ -18,17 +18,21 @@
 #include "cub3d.h"
 #include "errors.h"
 
-int     key_hook(int key, void *p __attribute__((unused)))
+int     key_hook(int key, t_conf *conf)
 {
 	printf("key hook called\n");
 	if (key == 0xFF1B)
+	{
+		free_config(conf);
 		exit(0);
+	}
 	return (0);
 }
 
-int		exit_hook(void *p __attribute__((unused)))
+int		exit_hook(t_conf *conf)
 {
 	printf("exit hook called\n");
+	free_config(conf);
 	exit(0);
 	return (0);
 }
@@ -55,7 +59,6 @@ int     main(int argc, char **argv)
 		free_config(conf);
 		return (-1);
 	}
-	/*printf("parse_config: %d\n", err);
 	printf("R: %dx%d\n", conf->res.x, conf->res.y);
 	printf("NO: %s\n", conf->textures[TEXTURE_NO]);
 	printf("SO: %s\n", conf->textures[TEXTURE_SO]);
@@ -63,7 +66,26 @@ int     main(int argc, char **argv)
 	printf("EA: %s\n", conf->textures[TEXTURE_EA]);
 	printf("S: %s\n", conf->textures[TEXTURE_S]);
 	printf("F: %d,%d,%d\n", conf->floor_color[0], conf->floor_color[1], conf->floor_color[2]);
-	printf("C: %d,%d,%d\n", conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]);*/
+	printf("C: %d,%d,%d\n", conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]);
+	printf("Map: %dx%d\n", conf->map_dim.y, conf->map_dim.x);
+	int x, y;
+	y = 0;
+	while (y < conf->map_dim.y)
+	{
+		x = 0;
+		printf("[ ");
+		while (x < conf->map_dim.x)
+		{
+			if (conf->pos.x == x && conf->pos.y == y)
+				printf(" %f ", conf->direction);
+			else
+				printf(" %d ", conf->map[y][x]);
+			x++;
+		}
+		printf(" ]\n");
+		y++;
+	}
+	printf("map[0][0]: %d\n", conf->map[0][0]);
 	if (!(vars.mlx = mlx_init()))
 	{
 		print_error(ERR_MLX_INIT_FAIL);
@@ -80,8 +102,8 @@ int     main(int argc, char **argv)
 		free_config(conf);
 		return (-1);
 	}
-	mlx_hook(vars.win, 17, (1L<<17), exit_hook, 0);
-	mlx_hook(vars.win, 2, (1L<<0), key_hook, 0);
+	mlx_hook(vars.win, 17, (1L<<17), exit_hook, conf);
+	mlx_hook(vars.win, 2, (1L<<0), key_hook, conf);
 	mlx_loop(vars.mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/08 08:30:31 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 17:14:09 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		get_max_width(t_conf *conf)
 	return (max_width);
 }
 
-int		transform_line(t_conf *conf, int **map, int x)
+int		transform_line(t_conf *conf, int x)
 {
 	int		y;
 	int		len;
@@ -91,9 +91,9 @@ int		transform_line(t_conf *conf, int **map, int x)
 	{
 		c = conf->map_text[x][y];
 		if (c == ' ')
-			map[x][y] = 0;
+			conf->map[x][y] = 0;
 		else if (c >= '0' && c <= '2')
-			map[x][y] = c - 48;
+			conf->map[x][y] = c - 48;
 		else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		{
 			if (x == 0 || y == 0)
@@ -101,9 +101,9 @@ int		transform_line(t_conf *conf, int **map, int x)
 				err = ERR_START_POS_ON_BORDER;
 				break ;
 			}
-			map[x][y] = 0;
-			conf->pos.x = x;
-			conf->pos.y = y;
+			conf->map[x][y] = 0;
+			conf->pos.x = y;
+			conf->pos.y = x;
 			if (c == 'N')
 				conf->direction = 90;
 			if (c == 'S')
@@ -125,22 +125,23 @@ int		transform_line(t_conf *conf, int **map, int x)
 
 int		transform_map(t_conf *conf)
 {
-	int	**map;
 	int	width;
 	int	x;
 	int	err;
 
 	err = ERR_SUCCESS;
 	width = get_max_width(conf);
-	if (!(map = (int **)malloc(sizeof(int*) * conf->map_lines)))
+	conf->map_dim.x = width;
+	conf->map_dim.y = conf->map_lines;
+	if (!(conf->map = (int **)malloc(sizeof(int*) * conf->map_lines)))
 		return (ERR_MALLOC_CUBE);
 	x = 0;
 	while (x < conf->map_lines)
 	{
-		map[x] = malloc(sizeof(int) * width);
-		if (!map[x])
+		conf->map[x] = malloc(sizeof(int) * width);
+		if (!conf->map[x])
 			return (ERR_MALLOC_CUBE);
-		if ((err = transform_line(conf, map, x)) != ERR_SUCCESS)
+		if ((err = transform_line(conf, x)) != ERR_SUCCESS)
 			break ;
 		x++;
 	}
@@ -172,6 +173,8 @@ int		is_numeric(char *str)
 
 void	free_config(t_conf *conf)
 {
+	int i;
+
 	if (!conf)
 		return ;
 	close(conf->map_fd);
@@ -181,8 +184,14 @@ void	free_config(t_conf *conf)
 	free(conf->textures[2]);
 	free(conf->textures[3]);
 	free(conf->textures[4]);
-	while (conf->map_lines--)
-		free(conf->map_text[conf->map_lines]);
+	i = 0;
+	while (i < conf->map_lines)
+	{
+		free(conf->map_text[i]);
+		free(conf->map[i]);
+		i++;
+	}
+	free(conf->map_text);
 	free(conf->map);
 	free(conf);
 }
