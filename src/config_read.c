@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/08 09:21:34 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 09:56:57 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,36 +74,44 @@ int					add_map_line(t_conf *conf, char *line)
 	return (err);
 }
 
+int					check_line(t_conf *conf, int *map_end, char *line, int ret_gnl)
+{
+	int				err;
+	char			*trimmed;
+
+	err = ERR_SUCCESS;
+	if (!(trimmed = ft_strtrim(line, " \t")))
+		err = ERR_MALLOC_CUBE;
+	if (!err && conf->map_text == NULL && ft_strlen(trimmed) == 0)
+	{
+		free(trimmed);
+		return (err);
+	}
+	if (!err && *map_end == 1 && ft_strlen(trimmed) > 0)
+		err = ERR_MAP_EMPTY_LINE;
+	if (!err && ft_strlen(trimmed) == 0 && ret_gnl != 0)
+		*map_end = 1;
+	if (!err && *map_end == 0)
+		err = add_map_line(conf, line);
+	free(trimmed);
+	return (err);
+}
+
 int					read_map(t_conf *conf)
 {
 	char			*line;
 	int				ret_gnl;
 	int				err;
-	char			*trimmed;
-	int				end_of_map;
+	int				map_end;
 
 	err = ERR_SUCCESS;
-	end_of_map = 0;
+	map_end = 0;
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
-		if (!(trimmed = ft_strtrim(line, " \t")))
-			err = ERR_MALLOC_CUBE;
-		if (!err && conf->map_text == NULL && ft_strlen(trimmed) == 0)
-		{
-			free(trimmed);
-			free(line);
-			continue ;
-		}
-		if (!err && end_of_map == 1 && ft_strlen(trimmed) > 0)
-			err = ERR_MAP_EMPTY_LINE;
-		if (!err && ft_strlen(trimmed) == 0 && ret_gnl != 0)
-			end_of_map = 1;
-		if (!err && end_of_map == 0)
-			err = add_map_line(conf, line);
-		free(trimmed);
+		err = check_line(conf, &map_end, line, ret_gnl);
 		free(line);
-		if (ret_gnl == 0 || end_of_map == 1 || err != ERR_SUCCESS)
+		if (ret_gnl == 0 || map_end == 1 || err != ERR_SUCCESS)
 			break ;
 	}
 	if (ret_gnl == -1)
