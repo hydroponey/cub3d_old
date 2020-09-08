@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/08 17:14:09 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 17:41:57 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		transform_line(t_conf *conf, int x)
 	{
 		c = conf->map_text[x][y];
 		if (c == ' ')
-			conf->map[x][y] = 0;
+			conf->map[x][y] = -1;
 		else if (c >= '0' && c <= '2')
 			conf->map[x][y] = c - 48;
 		else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
