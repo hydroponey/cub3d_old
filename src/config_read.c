@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_config.c                                      :+:      :+:    :+:   */
+/*   config_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 20:44:08 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 09:21:34 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,32 +87,23 @@ int					read_map(t_conf *conf)
 	ret_gnl = -1;
 	while ((ret_gnl = get_next_line(conf->map_fd, &line)) >= 0)
 	{
-		trimmed = ft_strtrim(line, " \t");
-		if (conf->map_text == NULL && ft_strlen(trimmed) == 0)
+		if (!(trimmed = ft_strtrim(line, " \t")))
+			err = ERR_MALLOC_CUBE;
+		if (!err && conf->map_text == NULL && ft_strlen(trimmed) == 0)
 		{
 			free(trimmed);
 			free(line);
 			continue ;
 		}
-		if (end_of_map == 1 && ft_strlen(trimmed) > 0)
-		{
+		if (!err && end_of_map == 1 && ft_strlen(trimmed) > 0)
 			err = ERR_MAP_EMPTY_LINE;
-			free(trimmed);
-			free(line);
-			break ;
-		}
-		if (ft_strlen(trimmed) == 0 && ret_gnl != 0)
-		{
+		if (!err && ft_strlen(trimmed) == 0 && ret_gnl != 0)
 			end_of_map = 1;
-			free(trimmed);
-			free(line);
-			continue ;
-		}
-		if (end_of_map == 0)
+		if (!err && end_of_map == 0)
 			err = add_map_line(conf, line);
 		free(trimmed);
 		free(line);
-		if (ret_gnl == 0)
+		if (ret_gnl == 0 || end_of_map == 1 || err != ERR_SUCCESS)
 			break ;
 	}
 	if (ret_gnl == -1)

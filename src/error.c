@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:51:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 20:44:15 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 08:32:03 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 const char	*get_error_msg(int code)
 {
-	if (code > 0 && code < 25)
+	if (code > 0 && code < 28)
 		return (g_err_messages[code]);
 	return (NULL);
 }

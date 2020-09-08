@@ -1,0 +1,5 @@
+Map constraints :
+- First and last col/row can't have a 0 in it
+- 0 have to be surrounded by 0 or 1 or N/S/E/W
+- Map must have ONLY ONE N/S/E/W character
+- N/S/E/W character can't be surrounded by a space, must be 0, 1 or 2

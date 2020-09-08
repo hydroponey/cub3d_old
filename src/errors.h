@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:53:27 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 20:44:00 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 08:32:11 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@
 # define ERR_BAD_MAP_START			22
 # define ERR_BAD_MAP_CHAR			23
 # define ERR_MAP_EMPTY_LINE			24
+# define ERR_START_POS_ON_BORDER	25
+# define ERR_START_POS_NOT_FOUND	26
 
 #endif

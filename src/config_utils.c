@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 23:43:58 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/08 08:30:31 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ int		transform_line(t_conf *conf, int **map, int x)
 			map[x][y] = c - 48;
 		else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		{
+			if (x == 0 || y == 0)
+			{
+				err = ERR_START_POS_ON_BORDER;
+				break ;
+			}
 			map[x][y] = 0;
 			conf->pos.x = x;
 			conf->pos.y = y;
