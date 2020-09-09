@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:06:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/08 17:24:54 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/09 16:30:20 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,31 @@ int						trim_end_of_map(t_conf *conf)
 	return (err);
 }
 
+int						closed_check(t_conf *conf)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < conf->map_dim.x)
+	{
+		j = 0;
+		while (j < conf->map_dim.y)
+		{
+			if (conf->map[i][j] == 0)
+			{
+				if (i == (conf->map_dim.x - 1))
+					return (ERR_MAP_NOT_CLOSED);
+				if (j == (conf->map_dim.y - 1))
+					return (ERR_MAP_NOT_CLOSED);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (ERR_SUCCESS);
+}
+
 int						check_map(t_conf *conf)
 {
 	int			err;
@@ -96,6 +121,7 @@ int						check_map(t_conf *conf)
 		err = ERR_START_POS_NOT_FOUND;
 	if (!err && (conf->pos.x == 0 || conf->pos.y == 0))
 		err = ERR_START_POS_ON_BORDER;
+	err = closed_check(conf);
 	return (err);
 }
 
