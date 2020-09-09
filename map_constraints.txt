@@ -3,3 +3,7 @@ Map constraints :
 - 0 have to be surrounded by 0 or 1 or N/S/E/W
 - Map must have ONLY ONE N/S/E/W character
 - N/S/E/W character can't be surrounded by a space, must be 0, 1 or 2
+
+http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/affichage/3d/raycasting/theorie/01-introduction
+http://www.playfuljs.com/a-first-person-engine-in-265-lines/
+https://lodev.org/cgtutor/raycasting.html
