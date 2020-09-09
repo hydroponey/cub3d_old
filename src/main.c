@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/08/23 23:47:09 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/09 16:06:55 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "cub3d.h"
 #include "errors.h"
 
-int     key_hook(int key, t_conf *conf)
+int			key_hook(int key, t_conf *conf)
 {
 	printf("key hook called\n");
 	if (key == 0xFF1B)
@@ -31,7 +31,7 @@ int     key_hook(int key, t_conf *conf)
 	return (0);
 }
 
-int		exit_hook(t_conf *conf)
+int			exit_hook(t_conf *conf)
 {
 	printf("exit hook called\n");
 	free_config(conf);
@@ -39,7 +39,7 @@ int		exit_hook(t_conf *conf)
 	return (0);
 }
 
-int     main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_reso	screen_res;
@@ -104,8 +104,8 @@ int     main(int argc, char **argv)
 		free_config(conf);
 		return (-1);
 	}
-	mlx_hook(vars.win, 17, (1L<<17), exit_hook, conf);
-	mlx_hook(vars.win, 2, (1L<<0), key_hook, conf);
+	mlx_hook(vars.win, 17, (1L << 17), exit_hook, conf);
+	mlx_hook(vars.win, 2, (1L << 0), key_hook, conf);
 	mlx_loop(vars.mlx);
 	return (0);
 }
