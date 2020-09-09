@@ -10,26 +10,35 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCDIR	= src
-OBJDIR	= obj
-SRCS	=	src/main.c \
-			src/config_check.c \
-			src/config_parse.c \
-			src/config_read.c \
-			src/config_utils.c \
-			src/get_conf_values.c \
-			src/error.c \
-			src/get_next_line.c \
-			src/get_next_line_utils.c
-OBJS	=	$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -DBUFFER_SIZE=1024 -g3 -I.
-CLIBS	=	-Lmlx -Llibft -lft -lmlx -lXext -lX11
-NAME	=	cub3d
-MLX		=	mlx/libmlx.a
-LIBFT	=	libft/libft.a
+SRCDIR		=	src
+OBJDIR		=	obj
+SRCS		=	src/main.c \
+				src/config_check.c \
+				src/config_parse.c \
+				src/config_read.c \
+				src/config_utils.c \
+				src/get_conf_values.c \
+				src/error.c \
+				src/get_next_line.c \
+				src/get_next_line_utils.c
+OBJS		=	$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror -DBUFFER_SIZE=1024 -g3 -I.
+CLIBS		=	-Lmlx -Llibft -lft -lmlx -lXext -lX11
+CLIBSOSX	=	-Lmlx-mac -Llibft -lft -lmlx -framework OpenGL -framework AppKit
+NAME		=	cub3d
+MLX			=	mlx/libmlx.a
+LIBFT		=	libft/libft.a
+MLX_MAC		=	mlx-mac/libmlx.dylib
 
 all:		$(NAME)
+
+mac:		$(OBJS) $(MLX_MAC) $(LIBFT)
+			cp ./mlx-mac/libmlx.dylib libmlx.dylib
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CLIBSOSX)
+
+$(MLX_MAC):
+			$(MAKE) -C mlx-mac
 
 $(OBJS):	$(OBJDIR)/%.o : $(SRCDIR)/%.c
 			$(CC) $(CFLAGS) -c $< -o $@

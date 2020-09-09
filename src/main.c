@@ -12,7 +12,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <X11/Xlib.h>
+#ifndef __APPLE__
+# include <X11/Xlib.h>
+#endif
 #include "libft/libft.h"
 #include "mlx/mlx.h"
 #include "cub3d.h"

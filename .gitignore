@@ -1,3 +1,6 @@
 *.o
 cub3d
 mlx/*
+*.dylib
+*.swiftdoc
+*.swiftmodule
