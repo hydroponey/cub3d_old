@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:00 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/09 15:51:23 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/12 08:36:54 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,16 @@ int		get_max_width(t_conf *conf)
 	return (max_width);
 }
 
-int		set_start_pos(t_conf *conf, int x, int y, int c)
-{
-	int		err;
-
-	err = ERR_SUCCESS;
-	if (x == 0 || y == 0)
-		return (ERR_START_POS_ON_BORDER);
-	conf->map[x][y] = 0;
-	conf->pos.x = y;
-	conf->pos.y = x;
-	if (c == 'N')
-		conf->direction = 90;
-	if (c == 'S')
-		conf->direction = 270;
-	if (c == 'E')
-		conf->direction = 180;
-	if (c == 'W')
-		conf->direction = 0;
-	return (err);
-}
-
 int		transform_line(t_conf *conf, int x)
 {
 	int		y;
-	int		err;
 	int		len;
+	int		err;
 	char	c;
 
 	err = ERR_SUCCESS;
 	y = 0;
+	ft_memset(conf->map[x], -1, sizeof(int) * conf->map_dim.x);
 	len = ft_strlen(conf->map_text[x]);
 	while (y < len)
 	{
@@ -72,11 +52,29 @@ int		transform_line(t_conf *conf, int x)
 		else if (c >= '0' && c <= '2')
 			conf->map[x][y] = c - 48;
 		else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-			err = set_start_pos(conf, x, y, c);
+		{
+			if (x == 0 || y == 0)
+			{
+				err = ERR_START_POS_ON_BORDER;
+				break ;
+			}
+			conf->map[x][y] = 0;
+			conf->pos.x = y;
+			conf->pos.y = x;
+			if (c == 'N')
+				conf->direction = 90;
+			if (c == 'S')
+				conf->direction = 270;
+			if (c == 'E')
+				conf->direction = 180;
+			if (c == 'W')
+				conf->direction = 0;
+		}
 		else
+		{
 			err = ERR_BAD_MAP_CHAR;
-		if (err != ERR_SUCCESS)
 			break ;
+		}
 		y++;
 	}
 	return (err);
