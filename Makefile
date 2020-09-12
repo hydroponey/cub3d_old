@@ -6,7 +6,7 @@
 #    By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/23 01:43:43 by asimoes           #+#    #+#              #
-#    Updated: 2020/08/23 22:57:42 by asimoes          ###   ########.fr        #
+#    Updated: 2020/09/12 08:37:52 by asimoes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS		=	src/main.c \
 				src/config_check.c \
 				src/config_parse.c \
 				src/config_read.c \
+				src/config_transform.c \
 				src/config_utils.c \
 				src/get_conf_values.c \
 				src/error.c \
