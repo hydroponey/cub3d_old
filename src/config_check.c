@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:06:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/09 16:30:20 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/12 08:37:15 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,28 @@ int						trim_end_of_map(t_conf *conf)
 
 int						closed_check(t_conf *conf)
 {
-	int	i;
-	int	j;
+	int	w;
+	int	h;
+	int	is_border;
 
-	i = 0;
-	while (i < conf->map_dim.x)
+	h = 0;
+	while (h < conf->map_dim.y)
 	{
-		j = 0;
-		while (j < conf->map_dim.y)
+		w = 0;
+		while (w < conf->map_dim.x)
 		{
-			if (conf->map[i][j] == 0)
+			is_border = h == 0 || w == 0 || h == (conf->map_dim.y - 1) ||
+						w == (conf->map_dim.x - 1);
+			if (is_border && conf->map[h][w] == 0)
+				return (ERR_MAP_NOT_CLOSED);
+			if (conf->map[h][w] == 0)
 			{
-				if (i == (conf->map_dim.x - 1))
-					return (ERR_MAP_NOT_CLOSED);
-				if (j == (conf->map_dim.y - 1))
+				if (conf->map[h + 1][w] == -1 || conf->map[h][w + 1] == -1)
 					return (ERR_MAP_NOT_CLOSED);
 			}
-			j++;
+			w++;
 		}
-		i++;
+		h++;
 	}
 	return (ERR_SUCCESS);
 }
@@ -121,7 +124,8 @@ int						check_map(t_conf *conf)
 		err = ERR_START_POS_NOT_FOUND;
 	if (!err && (conf->pos.x == 0 || conf->pos.y == 0))
 		err = ERR_START_POS_ON_BORDER;
-	err = closed_check(conf);
+	if (!err)
+		err = closed_check(conf);
 	return (err);
 }
 
