@@ -6,14 +6,14 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 22:36:32 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/08 08:35:27 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/12 08:26:19 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_MESSAGES_H
 # define ERR_MESSAGES_H
 
-static const char *g_err_messages[28] = {	"",
+static const char *g_err_messages[29] = {	"",
 											"Usage: ./cub3d <path_to_map.cub> [--save]\n",
 											"Wrong map file extension.\n",
 											"Failed to open map file.\n",
@@ -39,7 +39,8 @@ static const char *g_err_messages[28] = {	"",
 											"Invalid character found in map.\n",
 											"Empty line found in map.\n",
 											"Starting position cannot be on the edge of the map.\n",
-											"Could not find starting position in map.\n"
+											"Could not find starting position in map.\n",
+											"Map is not closed.\n"
 										};
 
 #endif
