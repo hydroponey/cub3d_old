@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_config.c                                     :+:      :+:    :+:   */
+/*   config_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:34 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/05 14:40:36 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/14 10:57:44 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "cub3d.h"
 #include "errors.h"
+#include "libft/libft.h"
 
 int					parse_config(t_conf *conf)
 {
@@ -21,15 +22,13 @@ int					parse_config(t_conf *conf)
 	int				err;
 
 	err = ERR_SUCCESS;
-	if (!(conf_strings = (char**)malloc(sizeof(char *) * 8)))
+	conf_strings = (char**)malloc(sizeof(char *) * 8);
+	if (!conf_strings)
 		return (ERR_MALLOC_CUBE);
-	i = 0;
-	while (i < 8)
-		conf_strings[i++] = NULL;
+	ft_bzero(conf_strings, sizeof(char *) * 8);
 	err = read_params(conf, conf_strings);
-	err = (err == ERR_SUCCESS) ? read_map(conf) : err;
-	if (!err)
-		err = check_config(conf, conf_strings);
+	err = (!err) ? read_map(conf) : err;
+	err = (!err) ? check_config(conf, conf_strings) : err;
 	i = 0;
 	while (i < 8)
 		free(conf_strings[i++]);
