@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/12 08:36:35 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/09/13 09:59:23 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,34 @@
 #include "cub3d.h"
 #include "errors.h"
 
-int		setup_config(t_conf **conf, char **argv, int fd, int save_bmp)
+int		setup_config(t_conf **conf_ptr, char **argv, int fd, int save_bmp)
 {
-	int err;
+	int		err;
+	t_conf	*conf;
 
 	err = ERR_SUCCESS;
-	if (!(*conf = (t_conf*)malloc(sizeof(t_conf))))
+	conf = (t_conf*)malloc(sizeof(t_conf));
+	if (!conf)
 		return (ERR_MALLOC_CUBE);
-	if (!err)
-		ft_bzero(*conf, sizeof(t_conf));
-	if (!err && !((*conf)->map_path = ft_strdup(argv[1])))
+	ft_bzero(conf, sizeof(t_conf));
+	conf->map_path = ft_strdup(argv[1]);
+	if (!conf->map_path)
 		err = ERR_MALLOC_CUBE;
-	(*conf)->save_bmp = (save_bmp == 0) ? 1 : 0;
-	(*conf)->map_fd = fd;
-	(*conf)->map = NULL;
-	(*conf)->map_text = NULL;
-	(*conf)->map_lines = 0;
-	(*conf)->pos.x = -1;
-	(*conf)->pos.y = -1;
+	conf->mlx = NULL;
+	conf->win = NULL;
+	conf->save_bmp = (save_bmp == 0) ? 1 : 0;
+	conf->map_fd = fd;
+	conf->map = NULL;
+	conf->map_text = NULL;
+	conf->map_lines = 0;
+	conf->pos.x = -1;
+	conf->pos.y = -1;
 	if (err != ERR_SUCCESS)
 	{
-		free(*conf);
+		free(conf);
 		close(fd);
 	}
+	*conf_ptr = conf;
 	return (err);
 }
 
