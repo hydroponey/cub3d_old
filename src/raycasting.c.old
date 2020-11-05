@@ -1,0 +1,216 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/12 09:05:47 by asimoes           #+#    #+#             */
+/*   Updated: 2020/10/11 19:58:55 by asimoes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+#include "cub3d.h"
+#include "mlx/mlx.h"
+#include "mlx/mlx_int.h"
+
+#define _RGB(r, g, b) (b + (g << 8) + (r << 16))
+
+//  color_map_2(data3,bpp3,sl3,IM3_SX,IM3_SY,endian3, 1);
+// 	fill_image((unsigned char *)data, conf->mlx, bpp, sl, endian, conf->res.x, conf->res.y, endian);
+
+void	draw_floor_ceiling(t_imgdata *im_data, t_conf *conf)
+{
+	int 			ceil;
+	int				floor;
+	int				color;
+	int 			dec;
+	unsigned char	*ptr;
+	int				y;
+	int				x;
+	int				local_endian;
+	int 			a;
+	
+	a = 0x11223344;
+	if (((unsigned char *)&a)[0] == 0x11)
+		local_endian = 1;
+	else
+		local_endian = 0;
+
+	ceil = mlx_get_color_value(im_data->mlx, _RGB(conf->ceil_color[0], conf->ceil_color[1], conf->ceil_color[2]));
+	floor = mlx_get_color_value(im_data->mlx, _RGB(conf->floor_color[0], conf->floor_color[1], conf->floor_color[2]));
+	// Ceiling color will being from y=0 until y=conf->res.y/2
+	y = 0;
+	while (y < conf->res.y)
+	{
+		x = 0;
+		ptr = im_data->data + y * im_data->sl;
+		while (x < conf->res.x)
+		{
+			color = (y < (conf->res.y / 2)) ? ceil : floor;
+			dec = im_data->bpp / 8;
+			while (dec--)
+			{
+				if (im_data->endian == local_endian)
+				{
+					if (im_data->endian)
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[4-(im_data->bpp / 8)+dec];
+					else
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[dec];
+				}
+				else
+				{
+					if (im_data->endian)
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[(im_data->bpp / 8)-1-dec];
+					else
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[3-dec];
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+void	fill_image(t_imgdata *im_data, int color)
+{
+	int				x;
+	int				y;
+	int				opp;
+	int				dec;
+	int				color2;
+	unsigned char	*ptr;
+	int				a;
+	int				local_endian;
+	
+	a = 0x11223344;
+	if (((unsigned char *)&a)[0] == 0x11)
+		local_endian = 1;
+	else
+		local_endian = 0;
+	opp = im_data->bpp / 8;
+	printf("(opp : %d) ", opp);
+	y = im_data->h;
+	while (y--)
+	{
+		ptr = im_data->data+y*im_data->sl;
+		x = im_data->w;
+		while (x--)
+		{
+			color2 = mlx_get_color_value(im_data->mlx, color);
+			dec = opp;
+			while (dec--)
+			{
+				if (im_data->endian == local_endian)
+				{
+					if (im_data->endian)
+						*(ptr+x*opp+dec) = ((unsigned char *)(&color2))[4-opp+dec];
+					else
+						*(ptr+x*opp+dec) = ((unsigned char *)(&color2))[dec];
+				}
+				else
+				{
+					if (im_data->endian)
+						*(ptr+x*opp+dec) = ((unsigned char *)(&color2))[opp-1-dec];
+					else
+						*(ptr+x*opp+dec) = ((unsigned char *)(&color2))[3-dec];
+				}
+			}
+		}
+	}
+}
+
+void	init(t_conf *conf)
+{
+	void		*im;
+	t_imgdata	*im_data;
+
+	im_data = (t_imgdata*)malloc(sizeof(t_imgdata));
+	im_data->mlx = conf->mlx;
+	im_data->w = conf->res.x;
+	im_data->h = conf->res.y;
+	im = mlx_new_image(conf->mlx, conf->res.x, conf->res.y);
+	if (!im)
+	{
+		printf("Couldn't create new image\n");
+		return ;
+	}
+	im_data->data = (unsigned char*)mlx_get_data_addr(im, &im_data->bpp, &im_data->sl, &im_data->endian);
+	if (!im_data->data)
+	{
+		printf("mlx_get_data_addr returned NULL\n");
+		return ;
+	}
+	conf->im = im;
+	conf->im_data = im_data;
+}
+
+void	drawMap2D(t_conf *conf __attribute__((unused)))
+{
+
+}
+
+void	drawPlayer2D(t_conf *conf __attribute__((unused)))
+{
+	int				color;
+	int 			dec;
+	unsigned char	*ptr;
+	int				y;
+	int				x;
+	int				local_endian;
+	int 			a;
+	int				player_rect_size;
+	t_imgdata		*im_data;
+
+	im_data = conf->im_data;	
+	a = 0x11223344;
+	if (((unsigned char *)&a)[0] == 0x11)
+		local_endian = 1;
+	else
+		local_endian = 0;
+	color = mlx_get_color_value(im_data->mlx, _RGB(255, 255, 255));
+	player_rect_size = 12;
+	y = conf->res.y / 2 - (player_rect_size / 2);
+	while (y < (conf->res.y / 2 + (player_rect_size / 2)))
+	{
+		x = conf->res.x / 2 - (player_rect_size / 2);
+		ptr = im_data->data + y * im_data->sl;
+		while (x < (conf->res.x / 2 + (player_rect_size / 2)))
+		{
+			dec = im_data->bpp / 8;
+			while (dec--)
+			{
+				if (im_data->endian == local_endian)
+				{
+					if (im_data->endian)
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[4-(im_data->bpp / 8)+dec];
+					else
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[dec];
+				}
+				else
+				{
+					if (im_data->endian)
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[(im_data->bpp / 8)-1-dec];
+					else
+						*(ptr+x*(im_data->bpp / 8)+dec) = ((unsigned char *)(&color))[3-dec];
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+void	drawRays2D(t_conf *conf __attribute__((unused)))
+{
+
+}
+
+int	loop_hook(t_conf *conf)
+{
+	draw_floor_ceiling(conf->im_data, conf);
+	drawPlayer2D(conf);
+	mlx_put_image_to_window(conf->mlx, conf->win, conf->im, 0, 0);
+	return (0);
+}

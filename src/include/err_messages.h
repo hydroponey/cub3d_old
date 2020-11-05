@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 22:36:32 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/12 08:26:19 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/10/24 22:52:41 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static const char *g_err_messages[29] = {	"",
 											"Empty line found in map.\n",
 											"Starting position cannot be on the edge of the map.\n",
 											"Could not find starting position in map.\n",
-											"Map is not closed.\n"
+											"Map is not closed.\n",
+											"Failed to create image.\n"
 										};
 
 #endif

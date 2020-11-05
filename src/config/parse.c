@@ -6,13 +6,13 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:05:34 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/18 12:13:49 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/05 19:56:33 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../cub3d.h"
-#include "../errors.h"
+#include "../include/cub3d.h"
+#include "../include/errors.h"
 #include "libft/libft.h"
 
 int					parse_config(t_conf *conf)

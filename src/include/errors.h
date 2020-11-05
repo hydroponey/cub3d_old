@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:53:27 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/09 16:25:02 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/10/24 22:52:26 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@
 # define ERR_START_POS_ON_BORDER	25
 # define ERR_START_POS_NOT_FOUND	26
 # define ERR_MAP_NOT_CLOSED			27
+
+# define ERR_CREATING_IMAGE         28
 
 #endif

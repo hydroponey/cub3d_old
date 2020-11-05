@@ -1,0 +1,68 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/08/23 01:43:43 by asimoes           #+#    #+#              #
+#    Updated: 2020/09/18 12:22:24 by asimoes          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRCDIR		=	src
+OBJDIR		=	obj
+SRCS		=	src/main.c \
+				src/config/check.c \
+				src/config/parse.c \
+				src/config/read.c \
+				src/config/transform.c \
+				src/config/utils.c \
+				src/get_conf_values.c \
+				src/error.c \
+				src/raycasting.c \
+				src/get_next_line.c \
+				src/get_next_line_utils.c
+OBJS		=	$(patsubst %.c, %.o, $(SRCS))
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror -DBUFFER_SIZE=1024 -g3 -I.
+CLIBS		=	-Lmlx -Llibft -lft -lmlx -lXext -lX11
+CLIBSOSX	=	-Lmlx-mac -Llibft -lft -lmlx -framework OpenGL -framework AppKit
+NAME		=	cub3d
+MLX			=	mlx/libmlx.a
+LIBFT		=	libft/libft.a
+MLX_MAC		=	mlx-mac/libmlx.dylib
+
+all:		$(NAME)
+
+$(NAME):	$(OBJS) $(MLX) $(LIBFT)
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CLIBS)
+
+mac:		$(OBJS) $(MLX_MAC) $(LIBFT)
+			cp ./mlx-mac/libmlx.dylib libmlx.dylib
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CLIBSOSX)
+
+$(MLX_MAC):
+			$(MAKE) -C mlx-mac
+
+%.o:		%.c
+			$(CC) $(CFLAGS) -c $< -o $@
+
+$(MLX):
+			$(MAKE) -C mlx
+
+$(LIBFT):
+			$(MAKE) -C libft
+
+clean:
+			$(MAKE) -C mlx clean
+			$(MAKE) -C libft fclean
+			rm -f $(OBJS:.o=.d)
+
+fclean:		clean
+			rm -f cub3d
+
+re:			fclean all
+
+.PHONY: all
+all: ; $(info $$OBJS is [${OBJS}])echo Hello world

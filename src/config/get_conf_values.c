@@ -6,16 +6,15 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 21:25:28 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/06 15:55:15 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/05 19:52:52 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "libft/libft.h"
-#include "errors.h"
-#include "cub3d.h"
-
-#include <stdio.h>
+#include "../include/errors.h"
+#include "../include/cub3d.h"
 
 int						set_rgb(int *dest, char **data)
 {
@@ -37,10 +36,12 @@ int						set_rgb(int *dest, char **data)
 				free(rgb[i]);
 			return (ERR_FLOOR_NON_NUMERIC);
 		}
-		dest[i] = ft_atoi(rgb[i]);
-		free(rgb[i]);
 		i++;
 	}
+	dest[0] = ft_atoi(rgb[2]) + (ft_atoi(rgb[1]) << 8) + (ft_atoi(rgb[2]) << 16);
+	free(rgb[0]);
+	free(rgb[1]);
+	free(rgb[2]);
 	return (ERR_SUCCESS);
 }
 
@@ -112,7 +113,7 @@ int						get_ceil_color(t_conf *conf, char **conf_strings)
 		|| (tab[0] != NULL && tab[1] != NULL && tab[2] == NULL)))
 		err = ERR_SPLIT_VALUES;
 	if (!err)
-		err = set_rgb(conf->ceil_color, tab);
+		err = set_rgb(&conf->ceil_color, tab);
 	ft_freetab(tab);
 	return (err);
 }
@@ -132,7 +133,7 @@ int						get_floor_color(t_conf *conf, char **conf_strings)
 		|| (tab[0] != NULL && tab[1] != NULL && tab[2] == NULL)))
 		err = ERR_SPLIT_VALUES;
 	if (!err)
-		err = set_rgb(conf->floor_color, tab);
+		err = set_rgb(&conf->floor_color, tab);
 	ft_freetab(tab);
 	return (err);
 }

@@ -1,0 +1,1 @@
+gcc -MMD -Wall -Wextra -Werror -DBUFFER_SIZE=1024 -g3 -I. -o cub3d  src/main.o  src/config/check.o  src/config/parse.o  src/config/read.o  src/config/transform.o  src/config/utils.o  src/get_conf_values.o  src/error.o  src/raycasting.o  src/get_next_line.o  src/get_next_line_utils.o -Lmlx -Llibft -lft -lmlx -lXext -lX11

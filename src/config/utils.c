@@ -6,14 +6,14 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 10:55:57 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/18 12:13:42 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/05 20:02:08 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft/libft.h"
-#include "../cub3d.h"
-#include "../errors.h"
+#include "../include/cub3d.h"
+#include "../include/errors.h"
 
 int		setup_config(t_conf **conf_ptr, char **argv, int fd, int save_bmp)
 {
@@ -25,23 +25,13 @@ int		setup_config(t_conf **conf_ptr, char **argv, int fd, int save_bmp)
 	if (!conf)
 		return (ERR_MALLOC_CUBE);
 	ft_bzero(conf, sizeof(t_conf));
-	conf->map_path = ft_strdup(argv[1]);
-	if (!conf->map_path)
+	conf->map.path = ft_strdup(argv[1]);
+	if (!conf->map.path)
 		err = ERR_MALLOC_CUBE;
-	conf->mlx = NULL;
-	conf->win = NULL;
-	conf->save_bmp = (save_bmp == 0) ? 1 : 0;
-	conf->map_fd = fd;
-	conf->map = NULL;
-	conf->map_text = NULL;
-	conf->map_lines = 0;
-	conf->pos.x = -1;
-	conf->pos.y = -1;
+	conf->map.fd = fd;
+	conf->save = save_bmp;
 	if (err != ERR_SUCCESS)
-	{
-		free(conf);
-		close(fd);
-	}
+		free_config(conf);
 	*conf_ptr = conf;
 	return (err);
 }
@@ -94,23 +84,23 @@ void	free_config(t_conf *conf)
 
 	if (!conf)
 		return ;
-	close(conf->map_fd);
-	free(conf->map_path);
+	close(conf->map.fd);
+	free(conf->map.path);
 	free(conf->textures[0]);
 	free(conf->textures[1]);
 	free(conf->textures[2]);
 	free(conf->textures[3]);
 	free(conf->textures[4]);
 	i = 0;
-	while (i < conf->map_lines)
+	while (i < conf->map.lines)
 	{
-		if (conf->map_text != NULL)
-			free(conf->map_text[i]);
-		if (conf->map != NULL)
-			free(conf->map[i]);
+		if (conf->map.text != NULL)
+			free(conf->map.text[i]);
+		if (conf->map.data != NULL)
+			free(conf->map.data[i]);
 		i++;
 	}
-	free(conf->map_text);
-	free(conf->map);
+	free(conf->map.text);
+	free(conf->map.data);
 	free(conf);
 }

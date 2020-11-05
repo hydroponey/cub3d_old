@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:06:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/09/18 12:13:53 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/05 19:56:26 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "libft/libft.h"
-#include "../cub3d.h"
-#include "../errors.h"
+#include "../include/cub3d.h"
+#include "../include/errors.h"
 
 int						check_args(t_conf **conf, int argc, char **argv)
 {
@@ -36,7 +36,8 @@ int						check_args(t_conf **conf, int argc, char **argv)
 		err = ERR_CMD_USAGE;
 	if (!err && ft_strncmp(&argv[1][path_len - 4], ".cub", 4) != 0)
 		err = ERR_CMD_BAD_EXT;
-	if (!err && argc == 3 && (save_bmp = ft_strncmp(argv[2], "--save", 6)) != 0)
+	save_bmp = (argc == 3 && ft_strncmp(argv[2], "--save", 6) == 0) ? 1 : 0;
+	if (!err && argc == 3 && save_bmp == 0)
 		err = ERR_CMD_USAGE;
 	if (!err && (fd = open(argv[1], O_RDONLY)) == -1)
 		err = ERR_CMD_OPEN_FAIL;
@@ -55,15 +56,15 @@ int						trim_end_of_map(t_conf *conf)
 	is_empty = 1;
 	while (is_empty)
 	{
-		if (!(trimmed = ft_strtrim(conf->map_text[conf->map_lines - 1], " \t")))
+		if (!(trimmed = ft_strtrim(conf->map.text[conf->map.lines - 1], " \t")))
 		{
 			err = ERR_MALLOC_CUBE;
 			break ;
 		}
 		if (ft_strlen(trimmed) == 0)
 		{
-			free(conf->map_text[conf->map_lines - 1]);
-			conf->map_lines--;
+			free(conf->map.text[conf->map.lines - 1]);
+			conf->map.lines--;
 		}
 		else
 			is_empty = 0;
@@ -79,18 +80,18 @@ int						closed_check(t_conf *conf)
 	int	is_border;
 
 	h = 0;
-	while (h < conf->map_dim.y)
+	while (h < conf->map.height)
 	{
 		w = 0;
-		while (w < conf->map_dim.x)
+		while (w < conf->map.width)
 		{
-			is_border = h == 0 || w == 0 || h == (conf->map_dim.y - 1) ||
-						w == (conf->map_dim.x - 1);
-			if (is_border && conf->map[h][w] == 0)
+			is_border = h == 0 || w == 0 || h == (conf->map.height - 1) ||
+						w == (conf->map.width - 1);
+			if (is_border && conf->map.data[h][w] == 0)
 				return (ERR_MAP_NOT_CLOSED);
-			if (conf->map[h][w] == 0)
+			if (conf->map.data[h][w] == 0)
 			{
-				if (conf->map[h + 1][w] == -1 || conf->map[h][w + 1] == -1)
+				if (conf->map.data[h + 1][w] == -1 || conf->map.data[h][w + 1] == -1)
 					return (ERR_MAP_NOT_CLOSED);
 			}
 			w++;
@@ -106,15 +107,15 @@ int						check_map(t_conf *conf)
 	char		*trimmed;
 
 	err = ERR_SUCCESS;
-	if (conf->map_text == NULL)
+	if (conf->map.text == NULL)
 		err = ERR_MAP_NOT_PARSED;
 	if ((err = trim_end_of_map(conf)) != ERR_SUCCESS)
 		return (err);
-	trimmed = ft_strtrim(conf->map_text[conf->map_lines - 1], " 1");
+	trimmed = ft_strtrim(conf->map.text[conf->map.lines - 1], " 1");
 	if (ft_strlen(trimmed) != 0)
 		err = ERR_BAD_MAP_END;
 	free(trimmed);
-	trimmed = ft_strtrim(conf->map_text[0], " 1");
+	trimmed = ft_strtrim(conf->map.text[0], " 1");
 	if (ft_strlen(trimmed) != 0)
 		err = ERR_BAD_MAP_START;
 	free(trimmed);
