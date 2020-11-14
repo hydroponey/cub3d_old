@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/05 19:50:54 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 15:44:27 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,12 @@ void			draw_floor_perspective(t_conf *conf);
 int				draw_line(t_conf *conf, int x, int start, int end, int color);
 void			draw_walls(t_conf *conf);
 void			exit_screenshot(t_conf *conf);
+
+void			move_forward(t_conf *conf);
+void			move_backward(t_conf *conf);
+void			move_left(t_conf *conf);
+void			move_right(t_conf *conf);
+void			rotate_left(t_conf *conf);
+void			rotate_right(t_conf *conf);
 
 #endif
