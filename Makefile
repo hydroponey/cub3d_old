@@ -6,7 +6,7 @@
 #    By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/23 01:43:43 by asimoes           #+#    #+#              #
-#    Updated: 2020/11/05 19:10:17 by asimoes          ###   ########.fr        #
+#    Updated: 2020/11/14 15:48:36 by asimoes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ SRCS	=	src/error.c \
 			src/helpers.c \
 			src/draw_rect.c \
 			src/raycasting.c \
+			src/move.c \
+			src/rotate.c \
 			src/config/get_conf_values.c \
 			src/config/check.c \
 			src/config/parse.c \
