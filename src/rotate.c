@@ -6,9 +6,11 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 15:44:53 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/14 15:46:31 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 15:57:32 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "include/cub3d.h"
 
 void			rotate_left(t_conf *conf)
 {
@@ -17,5 +19,5 @@ void			rotate_left(t_conf *conf)
 
 void			rotate_right(t_conf *conf)
 {
-	
+
 }
