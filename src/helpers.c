@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 22:43:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/05 20:09:14 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/06 01:39:14 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			create_image(t_conf *conf)
 	img->data = (int*)mlx_get_data_addr(img->ptr, &img->bpp,
 										&img->size_line, &img->endian);
 	draw_background(conf);
-	//draw_walls(conf);
+	draw_walls(conf);
 	return (0);
 }
 

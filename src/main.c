@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/05 20:09:27 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/06 01:42:20 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ t_conf		*init_game(int argc, char **argv)
 	conf->win = mlx_new_window(conf->mlx, conf->res.x, conf->res.y, "Cub3D");
 	if (!conf->win)
 		exit_error(ERR_MLX_INIT_FAIL, conf);
-	mlx_put_image_to_window(conf->mlx, conf->win, conf->img.ptr, 0, 0);
 	return (conf);
 }
 
 int			game_loop(t_conf *conf)
 {
-	(void)conf;
-	return (0);
+	mlx_put_image_to_window(conf->mlx, conf->win, conf->img.ptr, 0, 0);
+	return (1);
 }
 
 int			main(int argc, char **argv)
@@ -60,7 +59,7 @@ int			main(int argc, char **argv)
 	mlx_hook(conf->win, 17, (1L << 17), exit_hook, conf);
 	mlx_hook(conf->win, 2, (1L << 0), key_pressed_hook, conf);
 	mlx_hook(conf->win, 3, (1L << 0), key_released_hook, conf);
-	mlx_loop_hook(conf->win, game_loop, conf);
+	mlx_loop_hook(conf->mlx, game_loop, conf);
 	mlx_loop(conf->mlx);
 	return (0);
 }
