@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:10:28 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/05 19:53:45 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 15:32:00 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,6 @@ typedef struct	s_doubleVector {
 	double			y;
 }				t_doubleVector;
 
-typedef struct	s_keys {
-	short int	w;
-	short int	a;
-	short int	s;
-	short int	d;
-
-	short int	left;
-	short int	right;
-	short int	up;
-	short int	down;
-}				t_keys;
-
 typedef struct	s_conf {
 	void			*mlx;
 	void			*win;
@@ -68,7 +56,6 @@ typedef struct	s_conf {
 	int				floor_color;
 	int				ceil_color;
 	t_img			img;
-	t_keys			keys;
 }				t_conf;
 
 #endif

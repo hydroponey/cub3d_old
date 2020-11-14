@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/05 19:48:50 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 15:37:28 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,20 @@ int		key_pressed_hook(int key, t_conf *conf)
 		exit(0);
 	}
 	if (key == KEY_W)
-		conf->keys.w = 1;
+		move_forward(conf);
 	if (key == KEY_A)
-		conf->keys.a = 1;
+		move_left(conf);
 	if (key == KEY_S)
-		conf->keys.s = 1;
+		move_backward(conf);
 	if (key == KEY_D)
-		conf->keys.d = 1;
+		move_right(conf);
 	if (key == KEY_LEFT)
-		conf->keys.left = 1;
+		rotate_left(conf);
 	if (key == KEY_RIGHT)
-		conf->keys.right = 1;
+		rotate_right(conf);
 	return (0);
 }
 
-int		key_released_hook(int key, t_conf *conf)
-{
-	printf("[EVENT] %08X released\n", key);
-	if (key == KEY_W)
-		conf->keys.w = 0;
-	if (key == KEY_A)
-		conf->keys.a = 0;
-	if (key == KEY_S)
-		conf->keys.s = 0;
-	if (key == KEY_D)
-		conf->keys.d = 0;
-	if (key == KEY_LEFT)
-		conf->keys.left = 0;
-	if (key == KEY_RIGHT)
-		conf->keys.right = 0;
-	return (0);
-}
 /*
 int		key_hook(int key, t_conf *conf)
 {

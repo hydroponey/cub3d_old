@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 20:01:26 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/05 19:51:39 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 15:41:55 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,4 @@ int	draw_rect(t_conf *conf, t_intVector *center, int w, int h, int color)
         cur_y++;
     }
     return (0);
-}
-
-void	draw_floor_perspective(t_conf *conf)
-{
-	int x, y;
-	int x_start, x_end;
-	int line_size;
-
-	line_size = conf->res.x;
-	y = conf->res.y;
-	while (y > 0)
-	{
-		x_start = (conf->res.x / 2) - (line_size / 2);
-		x_end = (conf->res.x / 2) + (line_size / 2);
-		x = x_start;
-		while (x < x_end)
-		{
-            conf->img.data[y * conf->res.x + x] = 0xFF0000;
-			x++;
-		}
-		line_size--;
-		y--;
-	}
 }

@@ -4,3 +4,4 @@ mlx/*
 *.dylib
 *.swiftdoc
 *.swiftmodule
+cub3d_destroyer
