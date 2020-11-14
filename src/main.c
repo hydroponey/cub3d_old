@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/14 15:42:13 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 16:34:07 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ t_conf		*init_game(int argc, char **argv)
 	t_conf	*conf;
 	int		err;
 
-	err = check_args(&conf, argc, argv);
+	conf = (t_conf*)malloc(sizeof(t_conf));
+	if (!conf)
+		exit_error(ERR_MALLOC, NULL);
+	err = check_args(conf, argc, argv);
 	if (err != ERR_SUCCESS)
 		exit_error(err, NULL);
 	err = parse_config(conf);

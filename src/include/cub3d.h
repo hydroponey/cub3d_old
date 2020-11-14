@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 01:50:11 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/14 15:44:27 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 16:34:11 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define KEY_NUM_PLUS	0xFFAB
 # define KEY_NUM_MINUS	0xFFAD
 
-int				check_args(t_conf **conf, int argc, char **argv);
+int				check_args(t_conf *conf, int argc, char **argv);
 int				check_map(t_conf *conf);
 int				check_config(t_conf *conf, char **conf_strings);
 int				setup_config(t_conf **conf, char **argv, int fd, int save_bmp);

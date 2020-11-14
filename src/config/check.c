@@ -6,7 +6,7 @@
 /*   By: asimoes <asimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 20:06:36 by asimoes           #+#    #+#             */
-/*   Updated: 2020/11/05 19:56:26 by asimoes          ###   ########.fr       */
+/*   Updated: 2020/11/14 16:34:23 by asimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../include/cub3d.h"
 #include "../include/errors.h"
 
-int						check_args(t_conf **conf, int argc, char **argv)
+int						check_args(t_conf *conf, int argc, char **argv)
 {
 	int		path_len;
 	int		save_bmp;
@@ -29,7 +29,6 @@ int						check_args(t_conf **conf, int argc, char **argv)
 
 	fd = -1;
 	err = 0;
-	*conf = NULL;
 	if (argc != 2 && argc != 3)
 		err = ERR_CMD_USAGE;
 	if (!err && (path_len = ft_strlen(argv[1])) < 4)
